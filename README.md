@@ -6,8 +6,11 @@
 3. [Installation](#installation)
 4. [Team](#team)
 5. [FAQs](#faqs)
+
 ### General Info
+***
 Este repositorio alberga el codigo del proyecto del ciclo 3 de MisionTIC
+***
 
 ## Technologies
 ***
