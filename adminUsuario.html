@@ -5,31 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="./adminUsuario.css">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/main/media/logo-favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <img class="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt="">
+        <a href="./inicio.html">
+            <img class="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt="">
+        </a>
         <nav class="navbar">
-            <a href="#Sign in">Home</a>
-            <a href="#Login">Ventas</a>
-            <a href="#Login">Consultas</a>
-            <a href="#Login">Administración</a>
+            <a href="./inicio.html">Inicio</a>
+            <a href="./ventas.html">Ventas</a>
+            <a href="#Login">Productos</a>
+            <a href="./adminUsuario.html">Administración</a>
         </nav>
     </header>
-    <div class="Container-admin">
+    <div class="Container">
         <div class="admin">
-            <h6>Seguridad de Runteams</h6>
-            <h2>Auntenticación de Credenciales</h2>
-            <p>Para tener el permiso de otorgar/restringir acceso al sistema de informacion es necesario autenticar su credencial </p>
+            <h2>Formulario</h2>
             <form action="">
-                <input type="text" name="username" placeholder="Usuario" class="username">
-                <input type="password" name="passaword" placeholder="Contraseña" class="passaword" required>
-                <input id="submit" type="submit" value="Aceptar" class="submit">
+                <input id="credenciales" type="text" name="credencial"  class="credencial" required pattern="[0-9]+" placeholder="Documento de identidad">
+                <input id="usuario" type="text" name="username" class="username" placeholder="Nombre de usuario">
+                <select name="" id="cargo">
+                    <option value="">Administrador</option>
+                    <option value="">Vendedor</option>  
+                    <option value="">Ejecutivo</option>
+                    <option value="">Operario</option>
+                    <option value="">Director</option>
+                    <option value="">Gerente comercial</option>
+                </select>
+                <select name="" id="">
+                    <option value="">Otorgar</option>
+                    <option value="">Restringir</option>
+                    <option value="">Deshabilitar</option>
+                </select>
+                <input type="submit" value="Aceptar" class="submit">
             </form>
         </div>
+        <div class="img">
+            <img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE.png?raw=true" alt="imagen Runteams">
+        </div> 
     </div>
     <footer>
         <div class="container_footer">

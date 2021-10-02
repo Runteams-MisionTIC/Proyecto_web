@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Credenciales</title>
+    <link rel="stylesheet" href="./credenciales.css">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/main/media/logo-favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <img class="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt="">
+        <a href="./inicio.html">
+            <img class="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt="">
+        </a>
         <nav class="navbar">
-            <a href="./interfazLogin.html">Acceder</a>
-            <a class="Login" href="#Consultas">Crear una cuenta</a>
+            <a href="./inicio.html">Inicio</a>
+            <a href="./ventas.html">Ventas</a>
+            <a href="#Login">Productos</a>
+            <a href="./credenciales.html">Administración</a>
         </nav>
     </header>
-    <div class="slider">
-        <ul>
-            <li><img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE.png?raw=true" alt="imagen1"></li>
-            <li><img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/ImgPE2.png?raw=true" alt="imagen2"></li>
-            <li><img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE3.png?raw=true" alt="imagen3"></li>
-            <li><img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE1.png?raw=true" alt="imagen4"></li>
-        </ul>
+    <div class="Container-admin">
+        <div class="admin">
+            <h6>Seguridad de Runteams</h6>
+            <h2>Auntenticación de Credenciales</h2>
+            <p>Para tener el permiso de otorgar/restringir acceso al sistema de informacion es necesario autenticar su credencial </p>
+            <form action="">
+                <input type="text" name="username" placeholder="Usuario" class="username">
+                <input type="password" name="passaword" placeholder="Contraseña" class="passaword" required>
+                <a href="./adminUsuario.html">
+                    <input id="submit" type="submit" value="Aceptar" class="submit">
+                </a>
+            </form>
+        </div>
     </div>
     <footer>
         <div class="container_footer">
@@ -48,7 +58,6 @@
                 <a href="#">Procesos</a>
                 <a href="#">Servicios</a>
             </div>
-
             <div class="box_footer">
                 <h2>Redes Sociales</h2>
                 <a href="#"><i class="fab fa-facebook-square"></i> Facebook</a>
@@ -62,5 +71,6 @@
             <b>Runteams</b></p>
         </div>
     </footer>
+    
 </body>
 </html>
