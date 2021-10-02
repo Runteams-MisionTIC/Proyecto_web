@@ -1,5 +1,4 @@
 # Proyecto_web
-Este repositorio alberga el codigo del proyecto del ciclo 3 de MisionTIC
 
 ## Table of Contents
 1. [General Info](#general-info)
@@ -8,9 +7,7 @@ Este repositorio alberga el codigo del proyecto del ciclo 3 de MisionTIC
 4. [Team](#team)
 5. [FAQs](#faqs)
 ### General Info
-***
-
-### Screenshot
+Este repositorio alberga el codigo del proyecto del ciclo 3 de MisionTIC
 
 ## Technologies
 ***
@@ -20,12 +17,12 @@ A list of technologies used within the project:
 ## Installation
 ***
 A little intro about the installation. 
-```
+
 $ git clone https://example.com
 $ cd ../path/to/the/file
 $ npm install
 $ npm start
-```
+
 Side information: To use the application in a special environment use ```lorem ipsum``` to start
 ## team
 Sebastián Duque Martinez, Yinare Cuellar Losada, Osbaldo Cortes Lozano, Jose Nicolas Chávez Patiño, Juan José Rubio Mejía. 
