@@ -5,7 +5,7 @@ Este repositorio alberga el codigo del proyecto del ciclo 3 de MisionTIC
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
-4. [Collaboration](#collaboration)
+4. [Team](#team)
 5. [FAQs](#faqs)
 ### General Info
 ***
@@ -27,7 +27,8 @@ $ npm install
 $ npm start
 ```
 Side information: To use the application in a special environment use ```lorem ipsum``` to start
-## Collaboration
+## team
+Sebastián Duque Martinez, Yinare Cuellar Losada, Osbaldo Cortes Lozano, Jose Nicolas Chávez Patiño, Juan José Rubio Mejía. 
 ***
 Give instructions on how to collaborate with your project.
 > Maybe you want to write a quote in this part. 
