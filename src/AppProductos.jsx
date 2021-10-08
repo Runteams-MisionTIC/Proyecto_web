@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './estilos/estilos.css';
 
-function appProductos() {
+function AppProductos() {
   return (
-    <div className="appProductos">
+    <div className="AppProductos">
         <header>
             <a href="./inicio.html">
                 <img className="logo" src="https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/main/media/logo.png" alt="" />
@@ -97,4 +97,4 @@ function vinculos({pagina}) {
     );
 }
 
-export default appProductos;
+export default AppProductos;
