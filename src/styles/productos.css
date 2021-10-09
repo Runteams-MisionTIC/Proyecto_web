@@ -6,15 +6,15 @@
     text-decoration: none;
     outline: none;
     border: none;
-  }
-  
-  body{
+}
+
+body{
     background-color: #fff;
-  
-  }
-  /* Barra de navegacion */
-  header{
-    
+
+}
+/* Barra de navegacion */
+header{
+    top: 0;
     left: 0;
     width: 100%;
     background:#fff;
@@ -23,143 +23,164 @@
     display: flex;
     align-items: center;
     justify-content:space-between; 
-   
-  }
-  
-  
-  header .navbar a{
+}
+
+
+header .navbar a{
     font-size: large;
     margin-left: 2rem;
-    color:#337DFF;
+    color: black;
+   
+}
+
+.usuario{
+    height: 3em;
   }
-  
-  .navbar .Login{
+
+.navbar .Login{
     color: white;
     background-color: #337DFF;
     padding: 10px;
     border-radius: 5px;
     padding-left: 1rem;
     padding-right: 1rem;
-  }
-  
-  .icono{
+}
+
+.icono{
     height: 50px;
        
-  }
-  /* Carrucel */
-  .slider{
-    width: 85%;
-    margin: auto;
-    overflow: hidden;
-    height: auto;
-  }
-  
-  .slider ul{
-    padding: none;
-    display: flex;
-    width: 400%;
-  
-    animation:cambio 20s infinite alternate;
-    animation-timing-function: ease;
-  }
-  
-  .slider li{
+}
+
+.productos{
+    margin-left: 30px;
+    color: white;
+    background-color: #219EBC;
+    padding: 1%;
+    border-radius: 0;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+}
+
+#contenedor-principal{
+    margin: 30px;
+    width: 95%;
+}
+
+table{
+    background-color: #fff;
+    text-align: left;
     width: 100%;
-    list-style: none;
-  }
-  
-  .slider img{
-    margin-top: 6rem;
-    width: 100%;
-  
-  }
-  @keyframes cambio {
-    0%{ margin-left: 0;}
-    20%{margin-left: 0;}
-  
-    25%{margin-left: -100%;}
-    45%{margin-left: -100%;}
-  
-    50%{margin-left: -200%;}
-    70%{margin-left: -200%;}
-  
-    75%{margin-left: -300%;}
-    100%{margin-left: -300%;}
-    
-  }
-  /* Footer */
-  footer{
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 1px solid black;
+    padding: 20px;
+}
+
+thead{
+    background-color: #8ecae6;
+}
+
+tr:nth-child(even){
+    background-color: #ddd;
+}
+
+
+
+
+
+/* Footer */
+footer{
     width: 100%;
     padding: 50px;
-    background-image:url(https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/c2a1bbfdb2f2d0487be6a5b7d8aed268412c25e0/media/background-footer.svg);
+    background-image:url(https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/eb83b396501b5dc2a79c0dbb6b667e949c555936/media/background-footer.svg);
     background-size: cover;
     font-size: 14px;
     height: 68vh;
     
-  }
-  
-  .container_footer{
+}
+
+.container_footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 20px;
     max-width: 1200px;
     margin-top: 100px;
-  }
-  
-  .box_footer{
+}
+
+.box_footer{
     display: flex;
     flex-direction:column;
     padding: 40px;
-  }
-  
-  .box_footer .logo_footer img{
+}
+
+.box_footer .logo_footer img{
     width: 120px;
     
-  }
-  
-  .box_footer .terms{
+}
+
+.box_footer .terms{
     max-width: 350px;
     margin-top: 20px;
     font-weight: 500;
     color: #7a7a7a;
     font-size: 14px;
-  }
-  
-  .box_footer h2{
+}
+
+.box_footer h2{
     margin-bottom: 20px;
     color: #343434;
     font-weight: 700;
-  }
-  
-  .box_footer a{
+}
+
+.box_footer a{
     margin-top: 10px;
     color: #7a7a7a;
     font-weight: 600;
-  }
-  
-  .box_footer a:hover{
+}
+
+.box_footer a:hover{
     opacity: 0.8;
-  }
-  
-  .box_footer a .fab{
+}
+
+.box_footer a .fab{
     font-size: 20px;
     flex-direction: column;
-  
-  }
-  
-  .box_copy{
+
+}
+
+.box_copy{
     max-width: 1200px;
     margin: auto;
     text-align: center;
     padding: 0px 40px;
-  }
-  .box_copy p{
+}
+.box_copy p{
     color: #7a7a7a;
     margin: 20px;
-  }
-  .box_copy hr{
+}
+.box_copy hr{
     border: none;
     height: 1px;
     background-color: #7a7a7a;
-  }
+}
+
+.vinculo {
+    color: black;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 0;
+    position: relative;
+    left: 2%;
+    font-size: large;
+    text-decoration: none;
+}
+.vinculo:hover{
+    cursor: pointer;
+    color: black;
+    background-color: #8ecae6;
+    box-shadow: 1px 2px 5px 0 black;
+}

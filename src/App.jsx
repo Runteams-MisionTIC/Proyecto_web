@@ -1,5 +1,6 @@
 import Index from './pages/Index.jsx'
 import Ventas from './pages/Ventas.jsx'
+import Productos from './pages/Productos.jsx';
 import './styles/App.css';
 import {
     BrowserRouter as Router,
@@ -13,15 +14,17 @@ function App() {
     <div className="App">
         <Router>
             <Switch>
+                <Route path='/Productos'>
+                  <Productos/>
+                </Route>
                 <Route path='/Ventas'>
-                    <Ventas/>
+                  <Ventas/>
                 </Route>
                 <Route path='/'>
-                    <Index/>
+                  <Index/>
                 </Route>
             </Switch>
-        </Router>
-        
+        </Router> 
     </div>
   );
 }

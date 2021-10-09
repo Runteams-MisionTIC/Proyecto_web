@@ -1,4 +1,5 @@
 import '../styles/index.css'
+import { Link } from 'react-router-dom';
 
 function Index(){
     return(
@@ -8,7 +9,7 @@ function Index(){
                     <img className="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt=""/>
                 </a>
                 <nav className="navbar">
-                    <a href="./login.html">Acceder</a>
+                    <Link to="">Acceder</Link>
                     <a className="Login" href="#Consultas">Crear una cuenta</a>
                 </nav>
             </header>
