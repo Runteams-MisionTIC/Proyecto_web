@@ -1,6 +1,7 @@
 import '../styles/ventas.css';
 import Vinculos from '../components/Vinculos.jsx'
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function Ventas() {
     return (
@@ -9,19 +10,19 @@ function Ventas() {
                 <Link to='/'>
                     <img className="logo" src="https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/main/media/logo.png" alt="Logo"/>
                 </Link>
-                <Link to='' className='vinculo'>
+                <Link to='/' className='vinculo'>
                     <Vinculos pagina="Inicio" />
                 </Link>
-                <Link to='' className='vinculo'>
+                <Link to='/Ventas' className='vinculo'>
                     <Vinculos pagina="Ventas" />
                 </Link>
                 <Link to='/Productos' className="vinculo">
                     <Vinculos pagina="Productos" />
                 </Link>
-                <Link to='' className='vinculo'>
+                <Link to='/Credenciales' className='vinculo'>
                     <Vinculos pagina="Administración" />
                 </Link>
-                <Link to=''>
+                <Link to='/Login'>
                     <img className="usuario" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/usuario.png?raw=true" alt="Usuario"/>
                 </Link>
             </header>
@@ -58,42 +59,7 @@ function Ventas() {
                 </table>
             </section>
 
-            <footer>
-                <div className="container_footer">
-                    <div className="box_footer">
-                        <div className="logo_footer">
-                            <img src="https://raw.githubusercontent.com/Runteams-MisionTIC/Proyecto_web/main/media/logo.png" alt="logo"/>
-                        </div>
-                        <div className="terms"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ea esse sapiente soluta. Aut possimus non, aliquid soluta odit temporibus fugiat dolor quam iure placeat laudantium praesentium eum nesciunt nostrum.</p></div>
-                    </div>
-                    <div className="box_footer">
-                        <h2>Soluciones</h2>
-                        <a href="#">App Desarrollo</a>
-                        <a href="#">App Marketing</a>
-                        <a href="#">IOS Desarrollo</a>
-                        <a href="#">Android Desarrollo</a>
-                    </div>
-
-                    <div className="box_footer">
-                        <h2>Compañia</h2>
-                        <a href="#">Acerca de</a>
-                        <a href="#">Trabajos</a>
-                        <a href="#">Procesos</a>
-                        <a href="#">Servicios</a>
-                    </div>
-
-                    <div className="box_footer">
-                        <h2>Redes Sociales</h2>
-                        <a href="#"><i className="fab fa-facebook-square"></i> Facebook</a>
-                        <a href="#"><i className="fab fa-twitter-square"></i> Twitter</a>
-                        <a href="#"><i className="fab fa-instagram-square"></i> Instagram</a>
-                    </div>
-                </div>
-                <div className="box_copy">
-                    <p>Todos los derechos son reservados © 2021
-                    <b>Runteams</b></p>
-                </div>
-            </footer>
+            <Footer/>
         </div>
     );
 }
