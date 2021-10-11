@@ -1,4 +1,4 @@
-function Vinculos({pagina, vinculo}){
+const Vinculos = ({pagina, vinculo}) => {
     return <span href={vinculo}>{pagina}</span>
 }
 
