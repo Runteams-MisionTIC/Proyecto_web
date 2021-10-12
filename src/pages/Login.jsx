@@ -1,8 +1,8 @@
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "../styles/login.css";
 import Footer from '../components/Footer.jsx';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 const Login = () => {
     
