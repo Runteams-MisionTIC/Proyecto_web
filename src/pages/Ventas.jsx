@@ -52,7 +52,7 @@ const Ventas = () => {
     },[])
 
     useEffect(() => {
-        if (mostrarTabla == false) {
+        if (mostrarTabla === false) {
             setTextoBoton("Mostrar tabla")
         }else{
             setTextoBoton("Nueva venta")
@@ -81,11 +81,13 @@ const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}
     const [cantidad, setCantidad] = useState("");
 
     const enviarBackend = () => {
-        console.log(nombre, documento, telefono, producto, cantidad);
-        ingresarInformacionVenta([...listaVentas, 
-            {nombre:nombre, documento:documento, telefono:telefono, producto:producto, cantidad:cantidad}])
-        toast.success('La venta ha sido agregada con exito');
-        cambiarATabla(true);
+        if (nombre==='' || documento==='' || telefono==='' || producto==='' || cantidad==='') {
+            toast.error("Ingrese la información faltante")
+        } else {
+            ingresarInformacionVenta([...listaVentas, {nombre:nombre, documento:documento, telefono:telefono, producto:producto, cantidad:cantidad}])
+            toast.success('La venta ha sido agregada con exito');
+            cambiarATabla(true);
+        }
     }
     
     return (
@@ -95,39 +97,38 @@ const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}
                 placeholder="Nombre cliente" value={nombre} 
                 onChange={(e) => {
                     setNombre(e.target.value);
-                }}
+                }} required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Documento" value={documento} 
                 onChange={(e) => {
                     setDocumento(e.target.value);
-                }}
+                }} required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Teléfono" value={telefono} 
                 onChange={(e) => {
                     setTelefono(e.target.value);
-                }}
+                }} required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Producto" value={producto} 
                 onChange={(e) => {
                     setProducto(e.target.value);
-                }}
+                }} required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Cantidad" value={cantidad} 
                 onChange={(e) => {
                     setCantidad(e.target.value);
-                }}
+                }} required
             />
             <button id="saveButton"
-            type="button"
-            onClick={() => {enviarBackend()}} >
+                onClick={() => {enviarBackend()}} >
                 Guardar
             </button>
         </form>
