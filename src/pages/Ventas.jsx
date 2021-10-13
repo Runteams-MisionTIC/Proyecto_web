@@ -76,41 +76,61 @@ const Ventas = () => {
 
 const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}) => {
     
-    const form = useRef(null)
-    
-    const submitForm = (e) => {
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        const nuevaVenta = {};
-        fd.forEach((value, key) => {
-            nuevaVenta[key] = value;
-        });
-        console.log("Prueba de objeto", nuevaVenta)
+    const [nombre, setNombre] = useState("");
+    const [documento, setDocumento] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [producto, setProducto] = useState("");
+    const [cantidad, setCantidad] = useState("");
+
+    const enviarBackend = () => {
+        ingresarInformacionVenta([...listaVentas, {nombre:nombre, documento:documento, telefono:telefono, producto:producto, cantidad:cantidad}])
+        toast.success('La venta ha sido agregada con exito');
+        cambiarATabla(true);
     }
 
     return (
-        <form ref={form} onSubmit={submitForm} className="formulario">
+        <form onSubmit={enviarBackend} className="formulario">
             <input 
                 className="entrada" type="text" 
-                placeholder="Nombre cliente" required
+                placeholder="Nombre cliente" 
+                value={nombre} 
+                onChange={(e) => {
+                    setNombre(e.target.value);
+                }} required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Documento" required
+                placeholder="Documento"
+                value={documento} 
+                onChange={(e) => {
+                    setDocumento(e.target.value);
+                }} required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Teléfono" required
+                placeholder="Teléfono"
+                value={telefono} 
+                onChange={(e) => {
+                    setTelefono(e.target.value);
+                }} required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Producto" required
+                placeholder="Producto"
+                value={producto} 
+                onChange={(e) => {
+                    setProducto(e.target.value);
+                }} required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Cantidad" required
+                placeholder="Cantidad"
+                value={cantidad} 
+                onChange={(e) => {
+                    setCantidad(e.target.value);
+                }} required
             />
-            <button id="saveButton">Guardar</button>
+            <button type='submit' id="saveButton">Guardar</button>
         </form>
     );
 }
