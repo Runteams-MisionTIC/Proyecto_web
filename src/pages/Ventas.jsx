@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const ventasBackend = [
     {
@@ -75,60 +76,46 @@ const Ventas = () => {
 }
 
 const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}) => {
-    
-    const [nombre, setNombre] = useState("");
-    const [documento, setDocumento] = useState("");
-    const [telefono, setTelefono] = useState("");
-    const [producto, setProducto] = useState("");
-    const [cantidad, setCantidad] = useState("");
 
-    const enviarBackend = () => {
-        ingresarInformacionVenta([...listaVentas, {nombre:nombre, documento:documento, telefono:telefono, producto:producto, cantidad:cantidad}])
+    const form = useRef(null)     
+
+    const enviarBackend = (e) => {
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        const nuevaVenta = {};
+        fd.forEach((value, key) => nuevaVenta[key] = value);
+        console.log(nuevaVenta)
+        
         toast.success('La venta ha sido agregada con exito');
         cambiarATabla(true);
     }
 
     return (
-        <form onSubmit={enviarBackend} className="formulario">
+        <form ref={form} onSubmit={enviarBackend} className="formulario">
             <input 
                 className="entrada" type="text" 
                 placeholder="Nombre cliente" 
-                value={nombre} 
-                onChange={(e) => {
-                    setNombre(e.target.value);
-                }} required
+                name="nombre" required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Documento"
-                value={documento} 
-                onChange={(e) => {
-                    setDocumento(e.target.value);
-                }} required
+                name='documento' required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Teléfono"
-                value={telefono} 
-                onChange={(e) => {
-                    setTelefono(e.target.value);
-                }} required
+                name="telefono" required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Producto"
-                value={producto} 
-                onChange={(e) => {
-                    setProducto(e.target.value);
-                }} required
+                name="producto" required
             />
             <input 
                 className="entrada" type="text" 
                 placeholder="Cantidad"
-                value={cantidad} 
-                onChange={(e) => {
-                    setCantidad(e.target.value);
-                }} required
+                name="cantidad" required
             />
             <button type='submit' id="saveButton">Guardar</button>
         </form>
@@ -137,11 +124,6 @@ const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}
 
 
 const TablaVentas = ({listaVentas}) => {
-
-    useEffect(() => {
-        console.log("La lista es: ", listaVentas);
-    },[listaVentas]);
-
     return(
         <section className="contenedor-principal">
             <table>
