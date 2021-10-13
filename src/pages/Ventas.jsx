@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import '../styles/ventas.css';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -41,6 +41,7 @@ const ventasBackend = [
 ]
 
 const Ventas = () => {
+    
 
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState("Nueva venta")
@@ -74,63 +75,42 @@ const Ventas = () => {
 }
 
 const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}) => {
-    const [nombre, setNombre] = useState("");
-    const [documento, setDocumento] = useState("");
-    const [telefono, setTelefono] = useState("");
-    const [producto, setProducto] = useState("");
-    const [cantidad, setCantidad] = useState("");
-
-    const enviarBackend = () => {
-        if (nombre==='' || documento==='' || telefono==='' || producto==='' || cantidad==='') {
-            toast.error("Ingrese la información faltante")
-        } else {
-            ingresarInformacionVenta([...listaVentas, {nombre:nombre, documento:documento, telefono:telefono, producto:producto, cantidad:cantidad}])
-            toast.success('La venta ha sido agregada con exito');
-            cambiarATabla(true);
-        }
-    }
     
+    const form = useRef(null)
+    
+    const submitForm = (e) => {
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        const nuevaVenta = {};
+        fd.forEach((value, key) => {
+            nuevaVenta[key] = value;
+        });
+        console.log("Prueba de objeto", nuevaVenta)
+    }
+
     return (
-        <form className="formulario">
+        <form ref={form} onSubmit={submitForm} className="formulario">
             <input 
                 className="entrada" type="text" 
-                placeholder="Nombre cliente" value={nombre} 
-                onChange={(e) => {
-                    setNombre(e.target.value);
-                }} required
+                placeholder="Nombre cliente" required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Documento" value={documento} 
-                onChange={(e) => {
-                    setDocumento(e.target.value);
-                }} required
+                placeholder="Documento" required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Teléfono" value={telefono} 
-                onChange={(e) => {
-                    setTelefono(e.target.value);
-                }} required
+                placeholder="Teléfono" required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Producto" value={producto} 
-                onChange={(e) => {
-                    setProducto(e.target.value);
-                }} required
+                placeholder="Producto" required
             />
             <input 
                 className="entrada" type="text" 
-                placeholder="Cantidad" value={cantidad} 
-                onChange={(e) => {
-                    setCantidad(e.target.value);
-                }} required
+                placeholder="Cantidad" required
             />
-            <button id="saveButton"
-                onClick={() => {enviarBackend()}} >
-                Guardar
-            </button>
+            <button id="saveButton">Guardar</button>
         </form>
     );
 }
@@ -163,7 +143,7 @@ const TablaVentas = ({listaVentas}) => {
                             <tr>
                                 <td>{ventas.nombre}</td>
                                 <td>{ventas.documento}</td>
-                                <td>{ventas.numero}</td>
+                                <td>{ventas.telefono}</td>
                                 <td>{ventas.producto}</td>
                                 <td>{ventas.cantidad}</td>
                                 <td>600</td>
