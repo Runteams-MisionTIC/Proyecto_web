@@ -12,75 +12,110 @@ header{
     display: flex;
     align-items: center;
     justify-content:space-between; 
-  }
+}
   
-  .logo{
-    height: 4em;
-  }
-  .usuario{
-    height: 3em;
-  }
-  
-  .vinculo {
-    color: black;
-    padding: 1%;
-    margin: 1%;
-    border-radius: 0;
-    position: relative;
-    left: 2%;
-    font-size: large;
-    text-decoration: none;
-  }
-  .vinculo:hover{
-    cursor: pointer;
-    color: black;
-    background-color: #8ecae6;
-    box-shadow: 1px 2px 5px 0 black;
-  }
-  
-  /*FIN HEADER*/
-  
-  body{
-    background-color: #f1f1f1;
-    font-family: Helvetica;
-  }
-  
-  .ventas{
-    margin-left: 30px;
-    color: white;
-    background-color: #219EBC;
-    padding: 1%;
-    border-radius: 0;
-    border: none;
-    font-size: large;
-    cursor: pointer;
-  }
-  
-  /*TABLE*/
-  
-  #contenedor-principal{
-    margin: 30px;
-    width: 95%;
-  }
-  
-  table{
-    background-color: #fff;
-    text-align: left;
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td{
-    border: 1px solid black;
-    padding: 20px;
-  }
-  
-  thead{
-    background-color: #8ecae6;
-  }
-  
-  tr:nth-child(even){
-    background-color: #ddd;
-  }
-  
-  /*FIN TABLE*/
+.logo{
+  height: 4em;
+}
+.usuario{
+  height: 3em;
+}
+
+.vinculo {
+  color: black;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 0;
+  position: relative;
+  left: 2%;
+  font-size: large;
+  text-decoration: none;
+}
+.vinculo:hover{
+  cursor: pointer;
+  color: black;
+  background-color: #8ecae6;
+  box-shadow: 1px 2px 5px 0 black;
+}
+
+/*FIN HEADER*/
+
+body{
+  background-color: #f1f1f1;
+  font-family: Helvetica;
+}
+
+.ventas{
+  margin-left: 30px;
+  color: white;
+  background-color: #219EBC;
+  padding: 1%;
+  border-radius: 0;
+  border: none;
+  font-size: large;
+  cursor: pointer;
+}
+
+/*TABLE*/
+
+.contenedor-principal{
+  margin: 30px;
+  width: 95%;
+}
+
+table{
+  background-color: #fff;
+  text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2%;
+}
+
+th, td{
+  border: 1px solid black;
+  padding: 20px;
+}
+
+thead{
+  background-color: #8ecae6;
+}
+
+tr:nth-child(even){
+  background-color: #ddd;
+}
+
+/*Formulario ventas*/
+.formulario{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.entrada{
+  padding: 2vh;
+  margin: 2vh;
+  text-align: center;
+  border: none;
+  border-bottom: 1.7px solid black;
+  background-color: #f1f1f1;
+}
+.entrada:focus{
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+#saveButton{
+  padding: 2vh;
+  margin: 2vh;
+  color: white;
+  background-color: #219EBC;
+  border-radius: 0;
+  border: none;
+  font-size: large;
+  cursor: pointer;
+}
+/*Fin formulario*/
+
+/*FIN TABLE*/
