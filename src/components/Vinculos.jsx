@@ -1,5 +1,5 @@
-function Vinculos({pagina, vinculo}){
-    return <a className="vinculo" href={vinculo}>{pagina}</a>
+const Vinculos = ({pagina, vinculo}) => {
+    return <span href={vinculo}>{pagina}</span>
 }
 
 export default Vinculos;
