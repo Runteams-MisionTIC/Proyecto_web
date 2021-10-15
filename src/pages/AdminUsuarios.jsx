@@ -7,39 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 
-/*const adminBackend = [
-    {
-        nombre:"Juan",
-        documento:"1010101",
-        rol:"administrador",
-        estado:"autorizado"
-    },
-    {
-        nombre:"Orlando",
-        documento:"1010101",
-        rol:"administrador",
-        estado:"no autorizado"
-    },
-    {
-        nombre:"Sebastian",
-        documento:"1010101",
-        rol:"vendedor",
-        estado:"no autorizado"
-    },
-    {
-        nombre:"Yinare",
-        documento:"1010101",
-        rol:"vendedor",
-        estado:"autorizado"
-    },
-    {
-        nombre:"Nicolas",
-        documento:"1010101",
-        rol:"administrador",
-        estado:"pendiente"
-    }
-]*/
-
 const Admin = () => {
     
 
