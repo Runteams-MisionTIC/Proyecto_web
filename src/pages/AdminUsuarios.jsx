@@ -5,8 +5,9 @@ import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 
-const adminBackend = [
+/*const adminBackend = [
     {
         nombre:"Juan",
         documento:"1010101",
@@ -37,7 +38,7 @@ const adminBackend = [
         rol:"administrador",
         estado:"pendiente"
     }
-]
+]*/
 
 const Admin = () => {
     
@@ -45,35 +46,63 @@ const Admin = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState("Nuevo usuario")
     const [admin, setAdmin] = useState([])
+    const [hacerConsulta, setHacerConsulta] = useState(true)
 
     useEffect(() => {
-        //Obtener lista de usuarios
-        setAdmin(adminBackend)
-    },[])
+        //const obtenerAdmin = async () => {
+   //    const options = {method: 'GET', url: ''}
+   //    await axios.request(options).then(function(response){
+   //        setVentas(response.data)
+   //    })
+   //    .catch(function(error){
+   //        console.log(error)
+   //    });
+   if (hacerConsulta) {
+       //obtenerAdmin()
+       //setHacerConsulta(false)
+   } 
+},[hacerConsulta])
 
-    useEffect(() => {
-        if (mostrarTabla === false) {
-            setTextoBoton("Mostrar tabla")
-        }else{
-            setTextoBoton("Nuevo usuario")
-        }
-    },[mostrarTabla])
+useEffect(() => {
+   //const obtenerAdmin = async () => {
+   //    const options = {method: 'GET', url: ''}
+   //    await axios.request(options).then(function(response){
+   //        setAdmin(response.data)
+   //    })
+   //    .catch(function(error){
+   //        console.log(error)
+   //    });
+       setAdmin([]);
+   //}
+   //if(mostrarTabla){
+   //    obtenerAdmin()
+   //}
+},[]);
 
-    return (
-        <div className="Admin">
-            <Header/>
-            <section>
-                <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="admin">{textoBoton}</button>
-                {mostrarTabla ? <TablaAdmin  listaAdmin = {admin}/> : 
-                <FormularioAdmin cambiarATabla={setMostrarTabla} listaAdmin={admin} ingresarInformacionAdmin={setAdmin}/>}
-                <ToastContainer position="bottom-center" autoClose={5000} />
-            </section>
-            <Footer/>
-        </div>
-    );
+useEffect(() => {
+   if (mostrarTabla === false) {
+       setTextoBoton("Mostrar tabla");
+       //setHacerConsulta(true)
+   }else{
+       setTextoBoton("Nuevo usuario");
+   }
+},[mostrarTabla]);
+
+return (
+   <div className="Admin">
+       <Header/>
+       <section>
+           <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="admin">{textoBoton}</button>
+           {mostrarTabla ? <TablaAdmin  listaAdmin = {admin}/> : 
+           <FormularioAdmin cambiarATabla={setMostrarTabla} listaAdmin={admin} ingresarInformacionAdmin={setAdmin}/>}
+           <ToastContainer position="bottom-center" autoClose={5000} />
+       </section>
+       <Footer/>
+   </div>
+);
 }
 
-const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) => {
+/*const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) => {
 
     const form = useRef(null)     
 
@@ -113,9 +142,67 @@ const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) 
             <button type='submit' id="saveButton">Guardar</button>
         </form>
     );
+}*/
+
+const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) => {
+
+    const form = useRef(null)     
+
+    const enviarBackend = (e) => {
+        
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        const nuevoAdmin = {};
+        fd.forEach((value, key) => nuevoAdmin[key] = value);
+
+        //const options = {
+        //    method: 'POST',
+        //    url: '',
+        //    headers: {'content-type':'application/json'},
+        //    data: {key:nuevoAdmin.value}
+        //}
+        //await axios.request(options).then(function(response){
+        //    console.log(response.data)
+        //    toast.success('El usuario ha sido registrado exitosamente');
+        //})
+        //.catch(function(error){
+        //    console.log(error)
+        //    toast.error('El usuario no pudo ser registrado');
+        //})
+        
+        ingresarInformacionAdmin([...listaAdmin, nuevoAdmin])
+        cambiarATabla(true);
+    }
+
+    return (
+        <form ref={form} onSubmit={enviarBackend} className="formulario">
+            <input 
+                className="entrada" type="text" 
+                placeholder="Nombre usuario" 
+                name="nombre" required
+            />
+            <input 
+                className="entrada" type="text" 
+                placeholder="Documento"
+                name='documento' required
+            />
+            <input 
+                className="entrada" type="text" 
+                placeholder="Rol"
+                name="rol" required
+            />
+            <input 
+                className="entrada" type="text" 
+                placeholder="Estado"
+                name="estado" required
+            />
+            <button type='submit' id="saveButton">Guardar</button>
+        </form>
+    );
 }
 
-const TablaAdmin = ({listaAdmin}) => {
+const TablaAdmin = ({listaAdmin, setHacerConsulta}) => {
+
     return(
         <section className="contenedor-principal">
             <table>
@@ -125,26 +212,104 @@ const TablaAdmin = ({listaAdmin}) => {
                         <th>Documento</th>
                         <th>Rol</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {listaAdmin.map((admin)=>{
-                        return(
-                            <tr>
-                                <td>{admin.nombre}</td>
-                                <td>{admin.documento}</td>
-                                <td>{admin.rol}</td>
-                                <td>{admin.estado}</td>
-                            </tr>
-                        );
+                        return <FilaAdmin key={nanoid()} admin={admin} setHacerConsulta={setHacerConsulta} />
                     })}
                 </tbody>
             </table>
+            <button className="admin">Procesar</button>
             <button className="admin">Buscar</button>
-            <button className="admin">Deshabilitar</button>
-            <button className="admin">Editar</button>
+            <button className="admin">Reportes</button>
         </section>
     );
 }
 
+const FilaAdmin = ({admin, setHacerConsulta}) => {
+
+    const [editar, setEditar] = useState(false);
+
+    const [infoNuevoAdmin, setInfoNuevoAdmin] = useState({
+        nombre: admin.nombre,
+        documento: admin.documento,
+        rol: admin.rol,
+        estado: admin.estado,
+    })
+
+    const actualizarAdmin = () => {
+        //enviar la info al backend
+        
+        //const options = {
+        //    method: 'PATCH',
+        //    url: '',
+        //    headers: {'content-type':'application/json'},
+        //    data: {key:nuevoAdmin.value}
+        //    data: {...infoNuevoAdmin, id:admin._id}
+        //}
+        //await axios.request(options).then(function(response){
+        //    console.log(response.data)
+        //    setHacerConsulta(true)
+        //    toast.success('El usuario ha sido registrado exitosamente');
+        //})
+        //.catch(function(error){
+        //    console.log(error)
+        //    toast.error('El usuario no pudo ser registrado');
+        //})
+    }
+
+    const eliminarAdmin = () => {
+        //const options = {
+        //    method: 'DELETE',
+        //    url: '',
+        //    headers: {'content-type':'application/json'},
+        //    data: {key:nuevoAdmin.value}
+        //    data: {id:admin._id}
+        //}
+        //await axios.request(options).then(function(response){
+        //    console.log(response.data)
+        //    setHacerConsulta(true)
+        //    toast.success('El usuario ha sido registrado exitosamente');
+        //})
+        //.catch(function(error){
+        //    console.log(error)
+        //    toast.error('El usuario no pudo ser registrado');
+        //})
+    }
+
+    return(
+        <tr>
+            {editar ? (
+                <>
+                    <td><input name='nombre' className="inputsTabla" type="text" value={infoNuevoAdmin.nombre} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,nombre: e.target.nombre})}} /></td>
+                    <td><input name='documento' className="inputsTabla" type="text" value={infoNuevoAdmin.documento} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,documento: e.target.documento})}} /></td>
+                    <td><input name='rol' className="inputsTabla" type="text" value={infoNuevoAdmin.telefono} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,telefono: e.target.telefono})}} /></td>
+                    <td><input name='estado' className="inputsTabla" type="text" value={infoNuevoAdmin.producto} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,producto: e.target.producto})}} /></td>
+                </>
+             )  : (
+                    <>
+                        <td>{admin.nombre}</td>
+                        <td>{admin.documento}</td>
+                        <td>{admin.rol}</td>
+                        <td>{admin.estado}</td>
+                    </>
+                )
+            }
+            <td>
+                <div className="iconos">
+                    {editar ? (
+                        <i onClick={() => {actualizarAdmin(); setEditar(false)}} id="check" className="fas fa-check"></i>
+                    ):(
+                        <i onClick={() => {setEditar(!editar)}} id="pencil" className="fas fa-pencil-alt"></i>
+                    )}
+                    <i onClick={() => {eliminarAdmin()}} id="trashCan" className="fas fa-trash"></i>
+                </div>
+            </td>
+        </tr>
+    );
+}
+
 export default Admin;
+

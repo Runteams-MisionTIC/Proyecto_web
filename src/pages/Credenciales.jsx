@@ -16,6 +16,9 @@ function Credenciales() {
                     <Link to="/Ventas">Ventas</Link>
                     <Link to="/Productos">Productos</Link>
                     <Link to="/Administracion">Administración</Link>
+                    <Link to='/'>
+                    <img className="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/usuario.png?raw=true" alt="Usuario" />
+                </Link>
                 </nav>
             </header>
             <div className="Container-adminVal">

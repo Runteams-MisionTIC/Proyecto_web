@@ -4,7 +4,7 @@ header{
     /*position:fixed; /* Hace que la barra de navegacion siempre este presente*/
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     background:#fff;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
     padding: 1rem 9%;
@@ -65,10 +65,12 @@ body{
 
 table{
   background-color: #fff;
+  position:static;
+  width: 100vw;
   text-align: left;
-  width: 100%;
   border-collapse: collapse;
   margin-bottom: 2%;
+  overflow: scroll;
 }
 
 th, td{
@@ -83,6 +85,32 @@ thead{
 tr:nth-child(even){
   background-color: #ddd;
 }
+
+.iconos{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.inputsTabla{
+  border: 1px solid black;
+  width:80%;
+  padding: 0%;
+  margin: 0%;
+}
+#trashCan:hover{
+  color: rgba(255, 0, 0, 0.719);
+  cursor: pointer;
+}
+#pencil:hover{
+  color: blue;
+  cursor: pointer;
+}
+#check:hover{
+  color: green;
+  cursor: pointer;
+}
+
+/*Fin table*/
 
 /*Formulario ventas*/
 .formulario{
