@@ -1,0 +1,149 @@
+/*HEADER*/
+
+header{
+  /*position:fixed; /* Hace que la barra de navegacion siempre este presente*/
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background:#fff;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+  padding: 1rem 9%;
+  margin-bottom: 2%;
+  display: flex;
+  align-items: center;
+  justify-content:space-between; 
+}
+
+.logo{
+height: 4em;
+}
+.usuario{
+height: 3em;
+}
+
+.vinculo {
+color: black;
+padding: 1%;
+margin: 1%;
+border-radius: 0;
+position: relative;
+left: 2%;
+font-size: large;
+text-decoration: none;
+}
+.vinculo:hover{
+cursor: pointer;
+color: black;
+background-color: #8ecae6;
+box-shadow: 1px 2px 5px 0 black;
+}
+
+/*FIN HEADER*/
+
+body{
+background-color: #f1f1f1;
+font-family: Helvetica;
+}
+
+.admin{
+margin-left: 30px;
+color: white;
+background-color: #219EBC;
+padding: 1%;
+border-radius: 0;
+border: none;
+font-size: large;
+cursor: pointer;
+}
+
+/*TABLE*/
+
+.contenedor-principal{
+margin: 30px;
+width: 90%;
+}
+
+table{
+background-color: #fff;
+position:static;
+width: 94vw;
+text-align: left;
+border-collapse: collapse;
+margin-bottom: 2%;
+overflow: scroll;
+}
+
+th, td{
+border: 1px solid black;
+padding: 20px;
+}
+
+thead{
+background-color: #8ecae6;
+}
+
+tr:nth-child(even){
+background-color: #ddd;
+}
+
+.iconos{
+display: flex;
+flex-wrap: wrap;
+}
+
+.inputsTabla{
+border: 1px solid black;
+width:80%;
+padding: 0%;
+margin: 0%;
+}
+#trashCan:hover{
+color: rgba(255, 0, 0, 0.719);
+cursor: pointer;
+}
+#pencil:hover{
+color: blue;
+cursor: pointer;
+}
+#check:hover{
+color: green;
+cursor: pointer;
+}
+
+/*Fin table*/
+
+/*Formulario ventas*/
+.formulario{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+.entrada{
+padding: 2vh;
+margin: 2vh;
+text-align: center;
+border: none;
+border-bottom: 1.7px solid black;
+background-color: #f1f1f1;
+}
+.entrada:focus{
+border: 1px solid black;
+border-radius: 10px;
+background-color: #fff;
+}
+
+#saveButton{
+padding: 2vh;
+margin: 2vh;
+color: white;
+background-color: #219EBC;
+border-radius: 0;
+border: none;
+font-size: large;
+cursor: pointer;
+}
+/*Fin formulario*/
+
+/*FIN TABLE*/
