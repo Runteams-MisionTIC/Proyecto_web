@@ -1,149 +1,51 @@
-import React, {useState, useEffect, useRef} from 'react';
-import '../styles/AdminU.css';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import React from "react";
+import '../styles/adminUsuarios.css';
+import Footer from "../components/Footer.jsx"
+import { Link } from "react-router-dom";
 
-const adminBackend = [
-    {
-        nombre:"Juan",
-        documento:"1010101",
-        rol:"administrador",
-        estado:"autorizado"
-    },
-    {
-        nombre:"Orlando",
-        documento:"1010101",
-        rol:"administrador",
-        estado:"no autorizado"
-    },
-    {
-        nombre:"Sebastian",
-        documento:"1010101",
-        rol:"vendedor",
-        estado:"no autorizado"
-    },
-    {
-        nombre:"Yinare",
-        documento:"1010101",
-        rol:"vendedor",
-        estado:"autorizado"
-    },
-    {
-        nombre:"Nicolas",
-        documento:"1010101",
-        rol:"administrador",
-        estado:"pendiente"
-    }
-]
-
-const Admin = () => {
-    
-
-    const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [textoBoton, setTextoBoton] = useState("Nuevo usuario")
-    const [admin, setAdmin] = useState([])
-
-    useEffect(() => {
-        //Obtener lista de usuarios
-        setAdmin(adminBackend)
-    },[])
-
-    useEffect(() => {
-        if (mostrarTabla === false) {
-            setTextoBoton("Mostrar tabla")
-        }else{
-            setTextoBoton("Nuevo usuario")
-        }
-    },[mostrarTabla])
-
+function Admin () {
     return (
-        <div className="Admin">
-            <Header/>
-            <section>
-                <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="admin">{textoBoton}</button>
-                {mostrarTabla ? <TablaAdmin  listaAdmin = {admin}/> : 
-                <FormularioAdmin cambiarATabla={setMostrarTabla} listaAdmin={admin} ingresarInformacionAdmin={setAdmin}/>}
-                <ToastContainer position="bottom-center" autoClose={5000} />
-            </section>
-            <Footer/>
+    <div className="Admin">
+        <header>
+            <Link to='/'>
+                <img className="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt="" />
+            </Link>
+            <nav className="navbar">
+                <Link to="/">Inicio</Link>
+                <Link to="/Ventas">Ventas</Link>
+                <Link to="/Productos">Productos</Link>
+                <Link to="/Credenciales">Administración</Link>
+            </nav>
+        </header>
+        <div className="Container">
+            <div className="admin">
+                <h2>Formulario</h2>
+                <form action="">
+                    <input id="buscador" type="text" name="buscador"  className="buscador"  placeholder="Buscar empleado" />
+                    <input id="credenciales" type="text" name="credencial"  className="credencial" required pattern="[0-9]+" placeholder="Documento de identidad" />
+                    <input id="usuario" type="text" name="username" className="username" placeholder="Nombre de usuario" />
+                    <select name="" id="cargo">
+                        <option value="">Administrador</option>
+                        <option value="">Vendedor</option>  
+                        <option value="">Ejecutivo</option>
+                        <option value="">Operario</option>
+                        <option value="">Director</option>
+                        <option value="">Gerente comercial</option>
+                    </select>
+                    <select name="" id="">
+                        <option value="">Otorgar</option>
+                        <option value="">Restringir</option>
+                        <option value="">Deshabilitar</option>
+                    </select>
+                    <input type="submit" value="Aceptar" className="submit" />
+                </form>
+            </div>
+            <div className="img">
+                <img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE.png?raw=true" alt="imagen Runteams" />
+            </div> 
         </div>
-    );
-}
-
-const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) => {
-
-    const form = useRef(null)     
-
-    const enviarBackend = (e) => {
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        const nuevoAdmin = {};
-        fd.forEach((value, key) => nuevoAdmin[key] = value);
-        console.log(nuevoAdmin)
-        
-        toast.success('El usuario ha sido agregado exitosamente');
-        cambiarATabla(true);
-    }
-
-    return (
-        <form ref={form} onSubmit={enviarBackend} className="formulario">
-            <input 
-                className="entrada" type="text" 
-                placeholder="Nombre usuario" 
-                name="nombre" required
-            />
-            <input 
-                className="entrada" type="text" 
-                placeholder="Documento"
-                name='documento' required
-            />
-            <input 
-                className="entrada" type="text" 
-                placeholder="Rol"
-                name="rol" required
-            />
-            <input 
-                className="entrada" type="text" 
-                placeholder="Estado"
-                name="estado" required
-            />
-            <button type='submit' id="saveButton">Guardar</button>
-        </form>
-    );
-}
-
-const TablaAdmin = ({listaAdmin}) => {
-    return(
-        <section className="contenedor-principal">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre usuario</th>
-                        <th>Documento</th>
-                        <th>Rol</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listaAdmin.map((admin)=>{
-                        return(
-                            <tr>
-                                <td>{admin.nombre}</td>
-                                <td>{admin.documento}</td>
-                                <td>{admin.rol}</td>
-                                <td>{admin.estado}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-            <button className="admin">Buscar</button>
-            <button className="admin">Deshabilitar</button>
-            <button className="admin">Editar</button>
-        </section>
+        <Footer/>
+    </div>
     );
 }
 

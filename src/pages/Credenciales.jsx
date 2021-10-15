@@ -18,8 +18,8 @@ function Credenciales() {
                     <Link to="/Administracion">Administración</Link>
                 </nav>
             </header>
-            <div className="Container-adminVal">
-                <div className="adminVal">
+            <div className="Container-admin">
+                <div className="admin">
                     <h6>Seguridad de Runteams</h6>
                     <h2>Auntenticación de Credenciales</h2>
                     <p>Para tener el permiso de otorgar/restringir acceso al sistema de informacion es necesario autenticar su credencial </p>
