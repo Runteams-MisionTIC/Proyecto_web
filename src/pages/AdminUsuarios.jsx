@@ -20,7 +20,7 @@ const Admin = () => {
         const obtenerAdmin = async () => {
             const options = {method: 'GET', url: 'http://localhost:2999/admin'}
             await axios.request(options).then(function(response){
-                setVentas(response.data)
+                setAdmin(response.data)
             })
             .catch(function(error){
                 console.log(error)
@@ -97,7 +97,7 @@ const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) 
             toast.error('El usuario no pudo ser registrado');
         })
 
-        ingresarInformacionVenta([...listaAdmin, nuevoAdmin])
+        ingresarInformacionAdmin([...listaAdmin, nuevoAdmin])
         cambiarATabla(true);
     }
 
