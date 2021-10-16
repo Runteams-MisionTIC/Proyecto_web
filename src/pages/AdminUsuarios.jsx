@@ -166,7 +166,7 @@ const FilaAdmin = ({admin, setHacerConsulta}) => {
         estado: admin.estado,
     })
 
-    const actualizarAdmin = () => {
+    const actualizarAdmin = async () => {
         //enviar la info al backend
         
         const options = {
@@ -187,7 +187,7 @@ const FilaAdmin = ({admin, setHacerConsulta}) => {
         })
     }
 
-    const eliminarAdmin = () => {
+    const eliminarAdmin = async () => {
         const options = {
            method: 'DELETE',
            url: 'http://localhost:2999/admin/eliminar',
