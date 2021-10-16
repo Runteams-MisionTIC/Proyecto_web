@@ -17,40 +17,40 @@ const Ventas = () => {
     const [hacerConsulta, setHacerConsulta] = useState(true)
 
     useEffect(() => {
-             //const obtenerVentas = async () => {
-        //    const options = {method: 'GET', url: ''}
-        //    await axios.request(options).then(function(response){
-        //        setVentas(response.data)
-        //    })
-        //    .catch(function(error){
-        //        console.log(error)
-        //    });
-        if (hacerConsulta) {
-            //obtenerVentas()
-            //setHacerConsulta(false)
-        } 
+        const obtenerVentas = async () => {
+            const options = {method: 'GET', url: 'http://localhost:2999/ventas'}
+            await axios.request(options).then(function(response){
+                setVentas(response.data)
+            })
+            .catch(function(error){
+                console.log(error)
+            });
+            if (hacerConsulta) {
+                obtenerVentas()
+                setHacerConsulta(false)
+            }
+        }
     },[hacerConsulta])
 
     useEffect(() => {
-        //const obtenerVentas = async () => {
-        //    const options = {method: 'GET', url: ''}
-        //    await axios.request(options).then(function(response){
-        //        setVentas(response.data)
-        //    })
-        //    .catch(function(error){
-        //        console.log(error)
-        //    });
-            setVentas([]);
-        //}
-        //if(mostrarTabla){
-        //    obtenerVentas()
-        //}
+        const obtenerVentas = async () => {
+            const options = {method: 'GET', url: 'http://localhost:2999/ventas'}
+            await axios.request(options).then(function(response){
+                setVentas(response.data)
+            })
+            .catch(function(error){
+                console.log(error)
+            });
+        }
+        if(mostrarTabla){
+            obtenerVentas()
+        }
     },[]);
 
     useEffect(() => {
         if (mostrarTabla === false) {
             setTextoBoton("Mostrar tabla");
-            //setHacerConsulta(true)
+            setHacerConsulta(true)
         }else{
             setTextoBoton("Nueva venta");
         }
@@ -74,28 +74,30 @@ const FormularioVentas = ({cambiarATabla, listaVentas, ingresarInformacionVenta}
 
     const form = useRef(null)     
 
-    const enviarBackend = (e) => {
+    const enviarBackend = async (e) => {
         
         e.preventDefault();
         const fd = new FormData(form.current);
         const nuevaVenta = {};
         fd.forEach((value, key) => nuevaVenta[key] = value);
 
-        //const options = {
-        //    method: 'POST',
-        //    url: '',
-        //    headers: {'content-type':'application/json'},
-        //    data: {key:nuevaVenta.value}
-        //}
-        //await axios.request(options).then(function(response){
-        //    console.log(response.data)
-        //    toast.success('La venta ha sido agregada con exito');
-        //})
-        //.catch(function(error){
-        //    console.log(error)
-        //    toast.error('La venta no pudo ser agregada');
-        //})
-        
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:2999/ventas/nueva',
+            headers: {'content-type':'application/json'},
+            data: {nombre:nuevaVenta.nombre, documento:nuevaVenta.documento, 
+                   telefono:nuevaVenta.telefono, producto:nuevaVenta.producto, 
+                   cantidad:nuevaVenta.cantidad}
+        }
+        await axios.request(options).then(function(response){
+            console.log(response.data)
+            toast.success('La venta ha sido agregada con exito');
+        })
+        .catch(function(error){
+            console.log(error)
+            toast.error('La venta no pudo ser agregada');
+        })
+
         ingresarInformacionVenta([...listaVentas, nuevaVenta])
         cambiarATabla(true);
     }
