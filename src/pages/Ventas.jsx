@@ -177,44 +177,43 @@ const FilaVentas = ({ventas, setHacerConsulta}) => {
         cantidad: ventas.cantidad
     })
 
-    const actualizarVenta = () => {
+    const actualizarVenta = async () => {
         //enviar la info al backend
         
-        //const options = {
-        //    method: 'PATCH',
-        //    url: '',
-        //    headers: {'content-type':'application/json'},
-        //    data: {key:nuevaVenta.value}
-        //    data: {...infoNuevaVenta, id:ventas._id}
-        //}
-        //await axios.request(options).then(function(response){
-        //    console.log(response.data)
-        //    setHacerConsulta(true)
-        //    toast.success('La venta ha sido agregada con exito');
-        //})
-        //.catch(function(error){
-        //    console.log(error)
-        //    toast.error('La venta no pudo ser agregada');
-        //})
+        const options = {
+            method: 'PATCH',
+            url: 'http://localhost:2999/ventas/editar',
+            headers: {'content-type':'application/json'},
+            data: {...infoNuevaVenta, id:ventas._id}
+        }
+        await axios.request(options).then(function(response){
+            console.log(response.data)
+            setEditar(false)
+            setHacerConsulta(true)
+            toast.success('La venta ha sido editada con exito');
+        })
+        .catch(function(error){
+            console.log(error)
+            toast.error('La venta no pudo ser editada');
+        })
     }
 
-    const eliminarVenta = () => {
-        //const options = {
-        //    method: 'DELETE',
-        //    url: '',
-        //    headers: {'content-type':'application/json'},
-        //    data: {key:nuevaVenta.value}
-        //    data: {id:ventas._id}
-        //}
-        //await axios.request(options).then(function(response){
-        //    console.log(response.data)
-        //    setHacerConsulta(true)
-        //    toast.success('La venta ha sido agregada con exito');
-        //})
-        //.catch(function(error){
-        //    console.log(error)
-        //    toast.error('La venta no pudo ser agregada');
-        //})
+    const eliminarVenta = async () => {
+        const options = {
+            method: 'DELETE',
+            url: 'http://localhost:2999/ventas/eliminar',
+            headers: {'content-type':'application/json'},
+            data: {id:ventas._id}
+        }
+        await axios.request(options).then(function(response){
+            console.log(response.data)
+            setHacerConsulta(true)
+            toast.success('La venta ha sido agregada con exito');
+        })
+        .catch(function(error){
+            console.log(error)
+            toast.error('La venta no pudo ser agregada');
+        })
     }
 
     return(
