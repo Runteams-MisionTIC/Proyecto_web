@@ -74,7 +74,7 @@ const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) 
 
     const form = useRef(null)     
 
-    const enviarBackend = (e) => {
+    const enviarBackend = async (e) => {
 
         e.preventDefault();
         const fd = new FormData(form.current);
