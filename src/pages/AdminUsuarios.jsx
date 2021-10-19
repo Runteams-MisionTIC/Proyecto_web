@@ -33,27 +33,27 @@ const Admin = () => {
     },[hacerConsulta])
 
     useEffect(() => {
-    const obtenerAdmin = async () => {
-            const options = {method: 'GET', url: 'http://localhost:2999/admin'}
-            await axios.request(options).then(function(response){
-                setAdmin(response.data)
-            })
-            .catch(function(error){
-                console.log(error)
-            });
-        }
-        if(mostrarTabla){
-            obtenerAdmin()
-        }
+        const obtenerAdmin = async () => {
+                const options = {method: 'GET', url: 'http://localhost:2999/admin'}
+                await axios.request(options).then(function(response){
+                    setAdmin(response.data)
+                })
+                .catch(function(error){
+                    console.log(error)
+                });
+            }
+            if(mostrarTabla){
+                obtenerAdmin()
+            }
     },[]);
 
     useEffect(() => {
-    if (mostrarTabla === false) {
-        setTextoBoton("Mostrar tabla");
-        setHacerConsulta(true)
-    }else{
-        setTextoBoton("Nuevo usuario");
-    }
+        if (mostrarTabla === false) {
+            setTextoBoton("Mostrar tabla");
+            setHacerConsulta(true)
+        }else{
+            setTextoBoton("Nuevo usuario");
+        }
     },[mostrarTabla]);
 
     return (
