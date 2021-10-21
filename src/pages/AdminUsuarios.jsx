@@ -171,7 +171,7 @@ const FilaAdmin = ({admin, setHacerConsulta}) => {
         
         const options = {
            method: 'PATCH',
-           url: 'http://localhost:2999/admin/editar',
+           url: `http://localhost:2999/admin/${admin._id}/`,
            headers: {'content-type':'application/json'},
            data: {...infoNuevoAdmin, id:admin._id}
         }
