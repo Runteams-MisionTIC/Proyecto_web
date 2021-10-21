@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import '../styles/AdminU.css';
+import '../styles/usuarios.css';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,60 +9,51 @@ import { nanoid } from 'nanoid';
 
 
 
-const Admin = () => {
+const Usuarios = () => {
     
     const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [textoBoton, setTextoBoton] = useState("Nuevo usuario")
-    const [admin, setAdmin] = useState([])
-    const [hacerConsulta, setHacerConsulta] = useState(true)
+    const [textoBoton, setTextoBoton] = useState("Nuevo usuario");
+    const [usuarios, setUsuarios] = useState([]);
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
-    useEffect(() => {
-        const obtenerAdmin = async () => {
-            const options = {method: 'GET', url: 'http://localhost:2999/admin'}
-            await axios.request(options).then(function(response){
-                setAdmin(response.data)
-            })
-            .catch(function(error){
-                console.log(error)
-            });
-            if (hacerConsulta) {
-                obtenerAdmin()
-                setHacerConsulta(false)
-            } 
+    const obtenerUsuarios = async () => {
+        const options = { method: 'GET', url: 'http://localhost:2999/usuarios/' };
+        await axios.request(options).then(function (response) {
+            setUsuarios(response.data);
+          })
+          .catch(function (error) {
+            console.error(error);
+          });
+        setEjecutarConsulta(false);
+    };
+
+    useEffect(()=>{
+        if (ejecutarConsulta) {
+            obtenerUsuarios();
         }
-    },[hacerConsulta])
+    },[ejecutarConsulta]);
 
     useEffect(() => {
-        const obtenerAdmin = async () => {
-                const options = {method: 'GET', url: 'http://localhost:2999/admin'}
-                await axios.request(options).then(function(response){
-                    setAdmin(response.data)
-                })
-                .catch(function(error){
-                    console.log(error)
-                });
-            }
-            if(mostrarTabla){
-                obtenerAdmin()
-            }
-    },[]);
-
-    useEffect(() => {
-        if (mostrarTabla === false) {
-            setTextoBoton("Mostrar tabla");
-            setHacerConsulta(true)
-        }else{
-            setTextoBoton("Nuevo usuario");
+        if (mostrarTabla) {
+          setEjecutarConsulta(true);
         }
-    },[mostrarTabla]);
+    }, [mostrarTabla]);
+
+    useEffect(() => {
+        if (mostrarTabla) {
+          setTextoBoton('Nuevo usuario');
+        } else {
+          setTextoBoton('Mostrar usuarios');
+        }
+    }, [mostrarTabla]);
 
     return (
-        <div className="Admin">
+        <div className="Usuarios">
             <Header/>
             <section>
-                <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="admin">{textoBoton}</button>
-                {mostrarTabla ? <TablaAdmin  listaAdmin = {admin}/> : 
-                <FormularioAdmin cambiarATabla={setMostrarTabla} listaAdmin={admin} ingresarInformacionAdmin={setAdmin}/>}
+                <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="usuarios">{textoBoton}</button>
+                {mostrarTabla ? ( <TablaUsuarios  listaUsuarios = {usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
+                (<FormularioUsuarios setMostrarTabla={setMostrarTabla} listaUsuarios={usuarios} setUsuarios={setUsuarios}/>)}
                 <ToastContainer position="bottom-center" autoClose={5000} />
             </section>
             <Footer/>
@@ -70,35 +61,154 @@ const Admin = () => {
     );
 }
 
-const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) => {
+const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta}) => {
+
+    return(
+        <section className="contenedor-principal">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre usuario</th>
+                        <th>Documento</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {listaUsuarios.map((usuarios)=>{
+                        return <FilaUsuarios key={nanoid()} usuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />
+                    })}
+                </tbody>
+            </table>
+            <button className="usuarios">Procesar</button>
+            <button className="usuarios">Buscar</button>
+            <button className="usuarios">Reportes</button>
+        </section>
+    );
+}
+
+const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
+
+    const [editar, setEditar] = useState(false);
+
+    const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
+        nombre: usuarios.nombre,
+        documento: usuarios.documento,
+        rol: usuarios.rol,
+        estado: usuarios.estado
+    });
+
+    const actualizarUsuario = async () => {
+        
+        const options = {
+            method: 'PATCH',
+            url: `http://localhost:2999/usuarios/${usuarios._id}/`,
+            headers: {'content-type':'application/json'},
+            data: {...infoNuevoUsuario },
+        }
+        await axios.request(options).then(function(response){
+            console.log(response.data);
+            setEditar(false);
+            setEjecutarConsulta(true);
+            toast.success('El usuario ha sido editado con exito');
+        })
+        .catch(function(error){
+            console.log(error)
+            toast.error('El usuario no pudo ser editado');
+        })
+    }
+
+    const eliminarUsuario = async () => {
+        const options = {
+            method: 'DELETE',
+            url: `http://localhost:2999/usuarios/${usuarios._id}/`,
+            headers: {'content-type':'application/json'},
+            data: {id: usuarios._id},
+        }
+        await axios.request(options).then(function(response){
+            console.log(response.data)
+            setEjecutarConsulta(true)
+            toast.success('El usuario ha sido eliminado con exito');
+        })
+        .catch(function(error){
+            console.log(error)
+            toast.error('El usuario no pudo ser eliminado');
+        });
+    }
+
+    return(
+        <tr>
+            {editar ? (
+                <>
+                    <td><input className="inputsTabla" type="text" 
+                        value={infoNuevoUsuario.nombre} 
+                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, nombre: e.target.value})} />
+                    </td>
+                    <td><input className="inputsTabla" type="text" 
+                        value={infoNuevoUsuario.documento} 
+                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, documento: e.target.value})} />
+                    </td>
+                    <td><input className="inputsTabla" type="text" 
+                        value={infoNuevoUsuario.rol} 
+                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, rol: e.target.value})} />
+                    </td>
+                    <td><input className="inputsTabla" type="text" 
+                        value={infoNuevoUsuario.estado} 
+                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, estado: e.target.value})} />
+                    </td>
+                    
+                </>
+             )  : (
+                    <>
+                        <td>{usuarios.nombre}</td>
+                        <td>{usuarios.documento}</td>
+                        <td>{usuarios.rol}</td>
+                        <td>{usuarios.estado}</td>
+                    </>
+                )
+            }
+            <td>
+                <div className="iconos">
+                    {editar ? (
+                        <i onClick={() => {actualizarUsuario()}} id="check" className="fas fa-check"></i>
+                    ):(
+                        <i onClick={() => {setEditar(!editar)}} id="pencil" className="fas fa-pencil-alt"></i>
+                    )}
+                    <i onClick={() => {eliminarUsuario()}} id="trashCan" className="fas fa-trash"></i>
+                </div>
+            </td>
+        </tr>
+    );
+}
+
+const FormularioUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios}) => {
 
     const form = useRef(null)     
 
     const enviarBackend = async (e) => {
-
         e.preventDefault();
         const fd = new FormData(form.current);
-        const nuevoAdmin = {};
-        fd.forEach((value, key) => nuevoAdmin[key] = value);
+        const nuevoUsuario = {};
+        fd.forEach((value, key) => nuevoUsuario[key] = value);
 
         const options = {
             method: 'POST',
-            url: 'http://localhost:2999/admin/nuevo',
+            url: 'http://localhost:2999/usuarios/',
             headers: {'content-type':'application/json'},
-            data: {nombre:nuevoAdmin.nombre, documento:nuevoAdmin.documento, 
-                   rol:nuevoAdmin.rol, estado:nuevoAdmin.estado}
+            data: {nombre:nuevoUsuario.nombre, documento:nuevoUsuario.documento, 
+                   rol:nuevoUsuario.rol, estado:nuevoUsuario.estado}
         }
         await axios.request(options).then(function(response){
             console.log(response.data)
-            toast.success('El usuario ha sido agregado exitosamente');
+            toast.success('El usuario ha sido agregado con exito');
         })
         .catch(function(error){
             console.log(error)
-            toast.error('El usuario no pudo ser registrado');
+            toast.error('El usuario no pudo ser agregado');
         })
 
-        ingresarInformacionAdmin([...listaAdmin, nuevoAdmin])
-        cambiarATabla(true);
+        setMostrarTabla(true);
     }
 
     return (
@@ -128,114 +238,4 @@ const FormularioAdmin = ({cambiarATabla, listaAdmin, ingresarInformacionAdmin}) 
     );
 }
 
-const TablaAdmin = ({listaAdmin, setHacerConsulta}) => {
-
-    return(
-        <section className="contenedor-principal">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre usuario</th>
-                        <th>Documento</th>
-                        <th>Rol</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listaAdmin.map((admin)=>{
-                        return <FilaAdmin key={nanoid()} admin={admin} setHacerConsulta={setHacerConsulta} />
-                    })}
-                </tbody>
-            </table>
-            <button className="admin">Procesar</button>
-            <button className="admin">Buscar</button>
-            <button className="admin">Reportes</button>
-        </section>
-    );
-}
-
-const FilaAdmin = ({admin, setHacerConsulta}) => {
-
-    const [editar, setEditar] = useState(false);
-
-    const [infoNuevoAdmin, setInfoNuevoAdmin] = useState({
-        nombre: admin.nombre,
-        documento: admin.documento,
-        rol: admin.rol,
-        estado: admin.estado,
-    })
-
-    const actualizarAdmin = async () => {
-        //enviar la info al backend
-        
-        const options = {
-           method: 'PATCH',
-           url: `http://localhost:2999/admin/${admin._id}/`,
-           headers: {'content-type':'application/json'},
-           data: {...infoNuevoAdmin, id:admin._id}
-        }
-        await axios.request(options).then(function(response){
-           console.log(response.data)
-           setEditar(false)
-           setHacerConsulta(true)
-           toast.success('El usuario ha sido registrado exitosamente');
-        })
-        .catch(function(error){
-           console.log(error)
-           toast.error('El usuario no pudo ser registrado');
-        })
-    }
-
-    const eliminarAdmin = async () => {
-        const options = {
-           method: 'DELETE',
-           url: 'http://localhost:2999/admin/eliminar',
-           headers: {'content-type':'application/json'},
-           data: {id:admin._id}
-        }
-        await axios.request(options).then(function(response){
-           console.log(response.data)
-           setHacerConsulta(true)
-           toast.success('El usuario ha sido registrado exitosamente');
-        })
-        .catch(function(error){
-           console.log(error)
-           toast.error('El usuario no pudo ser registrado');
-        })
-    }
-
-    return(
-        <tr>
-            {editar ? (
-                <>
-                    <td><input name='nombre' className="inputsTabla" type="text" value={infoNuevoAdmin.nombre} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,nombre: e.target.nombre})}} /></td>
-                    <td><input name='documento' className="inputsTabla" type="text" value={infoNuevoAdmin.documento} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,documento: e.target.documento})}} /></td>
-                    <td><input name='rol' className="inputsTabla" type="text" value={infoNuevoAdmin.telefono} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,telefono: e.target.telefono})}} /></td>
-                    <td><input name='estado' className="inputsTabla" type="text" value={infoNuevoAdmin.producto} onChange={e=>{setInfoNuevoAdmin({...infoNuevoAdmin,producto: e.target.producto})}} /></td>
-                </>
-             )  : (
-                    <>
-                        <td>{admin.nombre}</td>
-                        <td>{admin.documento}</td>
-                        <td>{admin.rol}</td>
-                        <td>{admin.estado}</td>
-                    </>
-                )
-            }
-            <td>
-                <div className="iconos">
-                    {editar ? (
-                        <i onClick={() => {actualizarAdmin(); setEditar(false)}} id="check" className="fas fa-check"></i>
-                    ):(
-                        <i onClick={() => {setEditar(!editar)}} id="pencil" className="fas fa-pencil-alt"></i>
-                    )}
-                    <i onClick={() => {eliminarAdmin()}} id="trashCan" className="fas fa-trash"></i>
-                </div>
-            </td>
-        </tr>
-    );
-}
-
-export default Admin;
-
+export default Usuarios;
