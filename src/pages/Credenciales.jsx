@@ -16,13 +16,10 @@ function Credenciales() {
                     <Link to="/Ventas">Ventas</Link>
                     <Link to="/Productos">Productos</Link>
                     <Link to="/Administracion">Administración</Link>
-                    <Link to='/'>
-                    <img className="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/usuario.png?raw=true" alt="Usuario" />
-                </Link>
                 </nav>
             </header>
-            <div className="Container-adminVal">
-                <div className="adminVal">
+            <div className="Container-admin">
+                <div className="admin">
                     <h6>Seguridad de Runteams</h6>
                     <h2>Auntenticación de Credenciales</h2>
                     <p>Para tener el permiso de otorgar/restringir acceso al sistema de informacion es necesario autenticar su credencial </p>
