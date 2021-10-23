@@ -1,6 +1,5 @@
 import "../styles/login.css";
 import { Link } from 'react-router-dom';
-import Footer from './components/footer.jsx';
 import { Auth0Provider } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
 

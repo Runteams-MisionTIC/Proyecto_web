@@ -28,18 +28,18 @@
   
   
   header .navbar a{
-    font-size: large;
+    font-size: 2.5;
     margin-left: 2rem;
-    color:#337DFF;
+    font-weight:600;
+    color:black;
   }
   
-  .navbar .Login{
-    color: white;
-    background-color: #337DFF;
-    padding: 10px;
-    border-radius: 5px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .navbar button{
+    font-size: 5;
+    margin-left: 2rem;
+    font-weight:600;
+    color:black;
+    
   }
   
   .icono{
