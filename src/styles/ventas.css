@@ -4,7 +4,7 @@ header{
     /*position:fixed; /* Hace que la barra de navegacion siempre este presente*/
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     background:#fff;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
     padding: 1rem 9%;
@@ -66,11 +66,11 @@ body{
 table{
   background-color: #fff;
   position:static;
-  width: 100vw;
+  width: 100%;
+  margin: 10px;
+  overflow-y: scroll;
   text-align: left;
   border-collapse: collapse;
-  margin-bottom: 2%;
-  overflow: scroll;
 }
 
 th, td{

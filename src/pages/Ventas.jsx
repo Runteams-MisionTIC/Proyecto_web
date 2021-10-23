@@ -65,8 +65,25 @@ const Ventas = () => {
 
 const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
 
+    const [busqueda, setBusqueda] = useState("");
+    const [ventasFiltradas, setVentasFiltradas] = useState(listaVentas);
+
+    useEffect(() => {
+        setVentasFiltradas(
+            listaVentas.filter((elemento) => {
+                return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+        );
+    }, [busqueda, listaVentas]);
+
     return (
-        <section className="contenedor-principal">
+        <section className="flex flex-col items-center justify-center w-full">
+            <input
+                placeholder='Buscar'
+                className='self-end border border-gray-700 px-3 py-1 rounded-md outline-none focus:border-indi'
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+            />
             <table>
                 <thead>
                     <tr>
@@ -82,14 +99,11 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {listaVentas.map((ventas) => {
+                    {ventasFiltradas.map((ventas) => {
                         return <FilaVentas key={nanoid()} ventas={ventas} setEjecutarConsulta={setEjecutarConsulta} />
                     })}
                 </tbody>
             </table>
-            <button className="ventas">Procesar</button>
-            <button className="ventas">Buscar</button>
-            <button className="ventas">Reportes</button>
         </section>
     );
 }
