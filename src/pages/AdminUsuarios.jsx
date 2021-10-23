@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
+import { Tooltip } from '@material-ui/core';
+import { Dialog } from '@material-ui/core';
 
 
 
@@ -81,9 +83,6 @@ const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta}) => {
                     })}
                 </tbody>
             </table>
-            <button className="usuarios">Procesar</button>
-            <button className="usuarios">Buscar</button>
-            <button className="usuarios">Reportes</button>
         </section>
     );
 }
@@ -91,7 +90,7 @@ const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta}) => {
 const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
 
     const [editar, setEditar] = useState(false);
-
+    const [openDialog, setOpenDialog] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
         nombre: usuarios.nombre,
         documento: usuarios.documento,
@@ -131,10 +130,11 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
             setEjecutarConsulta(true)
             toast.success('El usuario ha sido eliminado con exito');
         })
-        .catch(function(error){
-            console.log(error)
-            toast.error('El usuario no pudo ser eliminado');
-        });
+            .catch(function(error){
+                console.log(error)
+                toast.error('El usuario no pudo ser eliminado');
+            });
+        setOpenDialog(false)
     }
 
     return(
@@ -171,12 +171,34 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
             <td>
                 <div className="iconos">
                     {editar ? (
-                        <i onClick={() => {actualizarUsuario()}} id="check" className="fas fa-check"></i>
-                    ):(
-                        <i onClick={() => {setEditar(!editar)}} id="pencil" className="fas fa-pencil-alt"></i>
+                        <>
+                            <Tooltip title='Confirmar edición'>
+                                <i onClick={() => { actualizarUsuario() }} id="check" className="fas fa-check"></i>
+                            </Tooltip>
+                            <Tooltip title='Cancelar edición'>
+                                <i onClick={() => { setEditar(!editar) }} id="cancel" className="far fa-window-close"></i>
+                            </Tooltip>
+                        </>
+                    ) : (
+                        <>
+                            <Tooltip title='Editar usuario'>
+                                <i onClick={() => { setEditar(!editar) }} id="pencil" className="fas fa-pencil-alt"></i>
+                            </Tooltip>
+                            <Tooltip title='Eliminar usuario'>
+                                <i onClick={() => { setOpenDialog(true) }} id="trashCan" className="fas fa-trash"></i>
+                            </Tooltip>
+                        </>
                     )}
-                    <i onClick={() => {eliminarUsuario()}} id="trashCan" className="fas fa-trash"></i>
                 </div>
+                <Dialog open={openDialog}>
+                    <div id='dialog'>
+                        <h1 id='titleDialog'>¿Desea eliminar el usuario?</h1>
+                        <div id='bodyDialog'>
+                            <button onClick={() => { eliminarUsuario() }} id='yesDialog'>Sí</button>
+                            <button onClick={() => { setOpenDialog(false) }} id='noDialog'>No</button>
+                        </div>
+                    </div>
+                </Dialog>
             </td>
         </tr>
     );
