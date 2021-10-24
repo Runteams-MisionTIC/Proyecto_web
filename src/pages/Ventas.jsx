@@ -199,22 +199,22 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
                         onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, cantidad: e.target.value })} />
                     </td>
                 </>
-                    ) : (
-                    <>
-                        <td>{ventas.nombre}</td>
-                        <td>{ventas.documento}</td>
-                        <td>{ventas.telefono}</td>
-                        <td>{ventas.producto}</td>
-                        <td>{ventas.cantidad}</td>
-                    </>
-                    )
+            ) : (
+                <>
+                    <td>{ventas.nombre}</td>
+                    <td>{ventas.documento}</td>
+                    <td>{ventas.telefono}</td>
+                    <td>{ventas.producto}</td>
+                    <td>{ventas.cantidad}</td>
+                </>
+            )
             }
-                    <td>valor</td>
-                    <td>$3.000</td>
-                    <td>#00000000</td>
+            <td>valor</td>
+            <td>$3.000</td>
+            <td>#00000000</td>
 
 
-                    {/* function generateRandom(min,max){
+            {/* function generateRandom(min,max){
                 return Math.floor(Math.random()* (max - min) + min);
             }
             function multiplicar(){
@@ -224,69 +224,69 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
             } */}
 
 
-                    <td>
-                        <div className="iconos">
-                            {editar ? (
-                                <>
-                                    <Tooltip title='Confirmar edición'>
-                                        <i onClick={() => { actualizarVenta() }} id="check" className="fas fa-check"></i>
-                                    </Tooltip>
-                                    <Tooltip title='Cancelar edición'>
-                                        <i onClick={() => { setEditar(!editar) }} id="cancel" className="far fa-window-close"></i>
-                                    </Tooltip>
-                                </>
-                            ) : (
-                                <>
-                                    <Tooltip title='Editar venta'>
-                                        <i onClick={() => { setEditar(!editar) }} id="pencil" className="fas fa-pencil-alt"></i>
-                                    </Tooltip>
-                                    <Tooltip title='Eliminar venta'>
-                                        <i onClick={() => { setOpenDialog(true) }} id="trashCan" className="fas fa-trash"></i>
-                                    </Tooltip>
-                                </>
-                            )}
+            <td>
+                <div className="iconos">
+                    {editar ? (
+                        <>
+                            <Tooltip title='Confirmar edición'>
+                                <i onClick={() => { actualizarVenta() }} id="check" className="fas fa-check"></i>
+                            </Tooltip>
+                            <Tooltip title='Cancelar edición'>
+                                <i onClick={() => { setEditar(!editar) }} id="cancel" className="far fa-window-close"></i>
+                            </Tooltip>
+                        </>
+                    ) : (
+                        <>
+                            <Tooltip title='Editar venta'>
+                                <i onClick={() => { setEditar(!editar) }} id="pencil" className="fas fa-pencil-alt"></i>
+                            </Tooltip>
+                            <Tooltip title='Eliminar venta'>
+                                <i onClick={() => { setOpenDialog(true) }} id="trashCan" className="fas fa-trash"></i>
+                            </Tooltip>
+                        </>
+                    )}
+                </div>
+                <Dialog open={openDialog}>
+                    <div className='p-8 flex flex-col'>
+                        <h1 className='text-gray-800 text-2xl font-bold'>¿Desea eliminar el vehículo?</h1>
+                        <div className='flex w-full items-center justify-center my-4'>
+                            <button onClick={() => { eliminarVenta() }} className='mx-2 px-4 py-2 hover:text-white hover:bg-green-500'>Sí</button>
+                            <button onClick={() => { setOpenDialog(false) }} className='mx-2 px-4 py-2 text-white bg-red-500'>No</button>
                         </div>
-                        <Dialog open={openDialog}>
-                            <div className='p-8 flex flex-col'>
-                                <h1 className='text-gray-800 text-2xl font-bold'>¿Desea eliminar el vehículo?</h1>
-                                <div className='flex w-full items-center justify-center my-4'>
-                                    <button onClick={() => { eliminarVenta() }} className='mx-2 px-4 py-2 hover:text-white hover:bg-green-500'>Sí</button>
-                                    <button onClick={() => { setOpenDialog(false) }} className='mx-2 px-4 py-2 text-white bg-red-500'>No</button>
-                                </div>
-                            </div>
-                        </Dialog>
-                    </td>
-                </tr>
-            );
+                    </div>
+                </Dialog>
+            </td>
+        </tr>
+    );
 }
 
-            const FormularioVentas = ({setMostrarTabla, listaVentas, setVentas}) => {
+const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
 
     const [productos, setProductos] = useState([]);
     useEffect(() => {
-                obtenerProductos(setProductos);
+        obtenerProductos(setProductos);
     }, []);
 
-            const form = useRef(null)
+    const form = useRef(null)
 
     const enviarBackend = async (e) => {
-                e.preventDefault();
-            const fd = new FormData(form.current);
-            const nuevaVenta = { };
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        const nuevaVenta = {};
         fd.forEach((value, key) => nuevaVenta[key] = value);
 
-            const options = {
-                method: 'POST',
+        const options = {
+            method: 'POST',
             url: 'http://localhost:2999/ventas/',
-            headers: {'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json' },
             data: {
                 nombre: nuevaVenta.nombre, documento: nuevaVenta.documento,
-            telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,
-            cantidad: nuevaVenta.cantidad
+                telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,
+                cantidad: nuevaVenta.cantidad
             }
         }
-            await axios.request(options).then(function (response) {
-                console.log(response.data)
+        await axios.request(options).then(function (response) {
+            console.log(response.data)
             toast.success('La venta ha sido agregada con exito');
         })
             .catch(function (error) {
@@ -294,43 +294,43 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
                 toast.error('La venta no pudo ser agregada');
             })
 
-            setMostrarTabla(true);
+        setMostrarTabla(true);
     }
 
-            return (
-            <form ref={form} onSubmit={enviarBackend} className="formulario">
-                <input
-                    className="entrada" type="text"
-                    placeholder="Nombre cliente"
-                    name="nombre" required
-                />
-                <input
-                    className="entrada" type="text"
-                    placeholder="Documento"
-                    name='documento' required
-                />
-                <input
-                    className="entrada" type="number"
-                    placeholder="Teléfono"
-                    name="telefono" required
-                />
-                <select
-                    className="entrada" type="text"
-                    placeholder='Producto' name="producto"
-                    required
-                >
-                    {productos.map(u => {
-                        return <option key={nanoid}>{u.nombre}</option>
-                    })}
-                </select>
-                <input
-                    className="entrada" type="number"
-                    placeholder="Cantidad"
-                    name="cantidad" required
-                />
-                <button type='submit' id="saveButton">Guardar</button>
-            </form>
-            );
+    return (
+        <form ref={form} onSubmit={enviarBackend} className="formulario">
+            <input
+                className="entrada" type="text"
+                placeholder="Nombre cliente"
+                name="nombre" required
+            />
+            <input
+                className="entrada" type="text"
+                placeholder="Documento"
+                name='documento' required
+            />
+            <input
+                className="entrada" type="number"
+                placeholder="Teléfono"
+                name="telefono" required
+            />
+            <select
+                className="entrada" type="text"
+                placeholder='Producto' name="producto"
+                required
+            >
+                {productos.map(u => {
+                    return <option key={nanoid}>{u.nombre}</option>
+                })}
+            </select>
+            <input
+                className="entrada" type="number"
+                placeholder="Cantidad"
+                name="cantidad" required
+            />
+            <button type='submit' id="saveButton">Guardar</button>
+        </form>
+    );
 }
 
-            export default Ventas;
+export default Ventas;

@@ -6,37 +6,44 @@ import Credenciales from './pages/Credenciales.jsx';
 import Administracion from './pages/AdminUsuarios.jsx';
 import './styles/App.css';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-  } from "react-router-dom";
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import { Auth0Provider } from '@auth0/auth0-react';
 
 function App() {
   return (
-    <div className="App">
+    <Auth0Provider
+      domain="misiontic-runteams.us.auth0.com"
+      clientId="hdHkF9NrsJMwxkySfC5h6cXikTAwkJP2"
+      redirectUri={window.location.origin}
+    >
+      <div className="App">
         <Router>
-            <Switch>
-                <Route path='/Login'>
-                  <Login/>
-                </Route>
-                <Route path='/Credenciales'>
-                  <Credenciales/>
-                </Route>
-                <Route path='/Administracion'>
-                  <Administracion/>
-                </Route>
-                <Route path='/Productos'>
-                  <Productos/>
-                </Route>
-                <Route path='/Ventas'>
-                  <Ventas/>
-                </Route>
-                <Route path='/'>
-                  <Index/>
-                </Route>
-            </Switch>
-        </Router> 
-    </div>
+          <Switch>
+            <Route path='/Login'>
+              <Login />
+            </Route>
+            <Route path='/Credenciales'>
+              <Credenciales />
+            </Route>
+            <Route path='/Administracion'>
+              <Administracion />
+            </Route>
+            <Route path='/Productos'>
+              <Productos />
+            </Route>
+            <Route path='/Ventas'>
+              <Ventas />
+            </Route>
+            <Route path='/'>
+              <Index />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </Auth0Provider>
   );
 }
 
