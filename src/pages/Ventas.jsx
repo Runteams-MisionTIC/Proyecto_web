@@ -8,6 +8,7 @@ import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { Tooltip } from '@material-ui/core';
 import { Dialog } from '@material-ui/core';
+import { obtenerProductos } from '../components/Apis.js';
 
 
 
@@ -80,7 +81,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
         <section className="flex flex-col items-center justify-center w-full">
             <input
                 placeholder='Buscar'
-                className='self-end border border-gray-700 px-3 py-1 rounded-md outline-none focus:border-indi'
+                className='self-end border border-gray-700 px-3 py-1 rounded-md outline-none mx-8'
                 value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
             />
@@ -111,6 +112,7 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
 const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
 
     const [editar, setEditar] = useState(false);
+    const [productos, setProductos] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [infoNuevaVenta, setInfoNuevaVenta] = useState({
         nombre: ventas.nombre,
@@ -159,6 +161,10 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
         setOpenDialog(false)
     }
 
+    useEffect(() => {
+        obtenerProductos(setProductos);
+    }, []);
+
     return (
         <tr>
             {editar ? (
@@ -175,90 +181,112 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
                         value={infoNuevaVenta.telefono}
                         onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, telefono: e.target.value })} />
                     </td>
-                    <td><input className="inputsTabla" type="text"
-                        value={infoNuevaVenta.producto}
-                        onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, producto: e.target.value })} />
+
+
+                    <td>
+                        <select className="inputsTabla" type="text"
+                            value={infoNuevaVenta.producto}
+                            onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, producto: e.target.value })}
+                        >
+                            {productos.map(u => {
+                                return <option key={nanoid}>{u.nombre}</option>
+                            })}
+                        </select>
                     </td>
+
                     <td><input className="inputsTabla" type="text"
                         value={infoNuevaVenta.cantidad}
                         onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, cantidad: e.target.value })} />
                     </td>
                 </>
-            ) : (
-                <>
-                    <td>{ventas.nombre}</td>
-                    <td>{ventas.documento}</td>
-                    <td>{ventas.telefono}</td>
-                    <td>{ventas.producto}</td>
-                    <td>{ventas.cantidad}</td>
-                </>
-            )
-            }
-
-            <td>600</td>
-            <td>$3.000</td>
-            <td>#00000000</td>
-
-
-
-            <td>
-                <div className="iconos">
-                    {editar ? (
-                        <>
-                            <Tooltip title='Confirmar edición'>
-                                <i onClick={() => { actualizarVenta() }} id="check" className="fas fa-check"></i>
-                            </Tooltip>
-                            <Tooltip title='Cancelar edición'>
-                                <i onClick={() => { setEditar(!editar) }} id="cancel" className="far fa-window-close"></i>
-                            </Tooltip>
-                        </>
                     ) : (
-                        <>
-                            <Tooltip title='Editar venta'>
-                                <i onClick={() => { setEditar(!editar) }} id="pencil" className="fas fa-pencil-alt"></i>
-                            </Tooltip>
-                            <Tooltip title='Eliminar venta'>
-                                <i onClick={() => { setOpenDialog(true) }} id="trashCan" className="fas fa-trash"></i>
-                            </Tooltip>
-                        </>
-                    )}
-                </div>
-                <Dialog open={openDialog}>
-                    <div id='dialog'>
-                        <h1 id='titleDialog'>¿Desea eliminar el vehículo?</h1>
-                        <div id='bodyDialog'>
-                            <button onClick={() => { eliminarVenta() }} id='yesDialog'>Sí</button>
-                            <button onClick={() => { setOpenDialog(false) }} id='noDialog'>No</button>
+                    <>
+                        <td>{ventas.nombre}</td>
+                        <td>{ventas.documento}</td>
+                        <td>{ventas.telefono}</td>
+                        <td>{ventas.producto}</td>
+                        <td>{ventas.cantidad}</td>
+                    </>
+                    )
+            }
+                    <td>valor</td>
+                    <td>$3.000</td>
+                    <td>#00000000</td>
+
+
+                    {/* function generateRandom(min,max){
+                return Math.floor(Math.random()* (max - min) + min);
+            }
+            function multiplicar(){
+                var x = parseInt(document.getElementById("valor1").value);
+                var y = parseInt(document.getElementById("valor2").value);
+                document.getElementById("resultado").innerHTML = x * y;
+            } */}
+
+
+                    <td>
+                        <div className="iconos">
+                            {editar ? (
+                                <>
+                                    <Tooltip title='Confirmar edición'>
+                                        <i onClick={() => { actualizarVenta() }} id="check" className="fas fa-check"></i>
+                                    </Tooltip>
+                                    <Tooltip title='Cancelar edición'>
+                                        <i onClick={() => { setEditar(!editar) }} id="cancel" className="far fa-window-close"></i>
+                                    </Tooltip>
+                                </>
+                            ) : (
+                                <>
+                                    <Tooltip title='Editar venta'>
+                                        <i onClick={() => { setEditar(!editar) }} id="pencil" className="fas fa-pencil-alt"></i>
+                                    </Tooltip>
+                                    <Tooltip title='Eliminar venta'>
+                                        <i onClick={() => { setOpenDialog(true) }} id="trashCan" className="fas fa-trash"></i>
+                                    </Tooltip>
+                                </>
+                            )}
                         </div>
-                    </div>
-                </Dialog>
-            </td>
-        </tr>
-    );
+                        <Dialog open={openDialog}>
+                            <div className='p-8 flex flex-col'>
+                                <h1 className='text-gray-800 text-2xl font-bold'>¿Desea eliminar el vehículo?</h1>
+                                <div className='flex w-full items-center justify-center my-4'>
+                                    <button onClick={() => { eliminarVenta() }} className='mx-2 px-4 py-2 hover:text-white hover:bg-green-500'>Sí</button>
+                                    <button onClick={() => { setOpenDialog(false) }} className='mx-2 px-4 py-2 text-white bg-red-500'>No</button>
+                                </div>
+                            </div>
+                        </Dialog>
+                    </td>
+                </tr>
+            );
 }
 
-const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
+            const FormularioVentas = ({setMostrarTabla, listaVentas, setVentas}) => {
 
-    const form = useRef(null)
+    const [productos, setProductos] = useState([]);
+    useEffect(() => {
+                obtenerProductos(setProductos);
+    }, []);
+
+            const form = useRef(null)
 
     const enviarBackend = async (e) => {
-        e.preventDefault();
-        const fd = new FormData(form.current);
-        const nuevaVenta = {};
+                e.preventDefault();
+            const fd = new FormData(form.current);
+            const nuevaVenta = { };
         fd.forEach((value, key) => nuevaVenta[key] = value);
 
-        const options = {
-            method: 'POST',
+            const options = {
+                method: 'POST',
             url: 'http://localhost:2999/ventas/',
-            headers: { 'content-type': 'application/json' },
+            headers: {'content-type': 'application/json' },
             data: {
                 nombre: nuevaVenta.nombre, documento: nuevaVenta.documento,
-                telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,
-                cantidad: nuevaVenta.cantidad
+            telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,
+            cantidad: nuevaVenta.cantidad
             }
         }
-        await axios.request(options).then(function (response) {
-            console.log(response.data)
+            await axios.request(options).then(function (response) {
+                console.log(response.data)
             toast.success('La venta ha sido agregada con exito');
         })
             .catch(function (error) {
@@ -266,39 +294,43 @@ const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
                 toast.error('La venta no pudo ser agregada');
             })
 
-        setMostrarTabla(true);
+            setMostrarTabla(true);
     }
 
-    return (
-        <form ref={form} onSubmit={enviarBackend} className="formulario">
-            <input
-                className="entrada" type="text"
-                placeholder="Nombre cliente"
-                name="nombre" required
-            />
-            <input
-                className="entrada" type="text"
-                placeholder="Documento"
-                name='documento' required
-            />
-            <input
-                className="entrada" type="number"
-                placeholder="Teléfono"
-                name="telefono" required
-            />
-            <input
-                className="entrada" type="text"
-                placeholder="Producto"
-                name="producto" required
-            />
-            <input
-                className="entrada" type="number"
-                placeholder="Cantidad"
-                name="cantidad" required
-            />
-            <button type='submit' id="saveButton">Guardar</button>
-        </form>
-    );
+            return (
+            <form ref={form} onSubmit={enviarBackend} className="formulario">
+                <input
+                    className="entrada" type="text"
+                    placeholder="Nombre cliente"
+                    name="nombre" required
+                />
+                <input
+                    className="entrada" type="text"
+                    placeholder="Documento"
+                    name='documento' required
+                />
+                <input
+                    className="entrada" type="number"
+                    placeholder="Teléfono"
+                    name="telefono" required
+                />
+                <select
+                    className="entrada" type="text"
+                    placeholder='Producto' name="producto"
+                    required
+                >
+                    {productos.map(u => {
+                        return <option key={nanoid}>{u.nombre}</option>
+                    })}
+                </select>
+                <input
+                    className="entrada" type="number"
+                    placeholder="Cantidad"
+                    name="cantidad" required
+                />
+                <button type='submit' id="saveButton">Guardar</button>
+            </form>
+            );
 }
 
-export default Ventas;
+            export default Ventas;
