@@ -1,23 +1,12 @@
 import "../styles/index.css";
-import { Link } from 'react-router-dom';
-import { Auth0Provider } from "@auth0/auth0-react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from '../components/Header'
 
 function Inicio(){
     const { logout} = useAuth0();
     return(
-        <Auth0Provider
-            domain="misiontic-runteams.us.auth0.com"
-            clientId="hdHkF9NrsJMwxkySfC5h6cXikTAwkJP2"
-            redirectUri={window.location.origin}
-        >
             <div className="Index">
-                <header>
-                    
-
-
-                </header>
+                <Header />
                 <div className="slider">
                     <ul>
                         <li><img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE.png?raw=true" alt="imagen1"/></li>
@@ -62,7 +51,6 @@ function Inicio(){
                     </div>
                 </footer>
             </div>
-        </Auth0Provider>
     );
 }
 
