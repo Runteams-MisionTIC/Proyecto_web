@@ -1,6 +1,4 @@
-import "../styles/index.css";
-import { Link } from 'react-router-dom';
-import { Auth0Provider } from "@auth0/auth0-react";
+import "../styles/index.css";git 
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from '../components/Header'
 
@@ -9,18 +7,7 @@ function Inicio() {
     return (
 
         <div className="Index">
-            <header>
-                <Link to='/'>
-                    <img className="icono" src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/logo.png?raw=true" alt="" />
-                </Link>
-                <nav className="navbar">
-                    <Link to="/">Inicio</Link>
-                    <Link to="/Ventas">Ventas</Link>
-                    <Link to="/Productos">Productos</Link>
-                    <Link to="/Administracion">Administración</Link>
-                    <button onClick={() => logout({ returnTo: window.location.origin })}>Cerrar sesión</button>
-                </nav>
-            </header>
+            <Header/>
             <div className="slider">
                 <ul>
                     <li><img src="https://github.com/Runteams-MisionTIC/Proyecto_web/blob/main/media/imgPE.png?raw=true" alt="imagen1" /></li>
