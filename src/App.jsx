@@ -1,5 +1,5 @@
-import Index from './pages/Index.jsx'
-import Ventas from './pages/Ventas.jsx'
+import Index from './pages/Index.jsx';
+import Ventas from './pages/Ventas.jsx';
 import Productos from './pages/Productos.jsx';
 import Login from './pages/Login.jsx';
 import Credenciales from './pages/Credenciales.jsx';

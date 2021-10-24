@@ -6,6 +6,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
+import { Tooltip } from '@material-ui/core';
+import { Dialog } from '@material-ui/core';
+
+
 
 
 
@@ -62,9 +66,25 @@ const Productos = () => {
 }
 
 const TablaProductos = ({listaProductos, setEjecutarConsulta}) => {
+    const [busqueda, setBusqueda] = useState("");
+    const [ProductosFiltrados, setProductosFiltrados] = useState(listaProductos);
+
+    useEffect(() => {
+        setProductosFiltrados(
+            listaProductos.filter((elemento) => {
+                return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+        );
+    }, [busqueda, listaProductos]);
 
     return(
-        <section className="contenedor-principal">
+        <section className="flex flex-col items-center justify-center w-full">
+            <input
+                placeholder='Buscar'
+                className='self-end border border-gray-700 px-3 py-1 rounded-md outline-none focus:border-indi'
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+            />
             <table>
                 <thead>
                     <tr>
@@ -77,14 +97,11 @@ const TablaProductos = ({listaProductos, setEjecutarConsulta}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {listaProductos.map((productos)=>{
+                    {ProductosFiltrados.map((productos)=>{
                         return <FilaProductos key={nanoid()} productos={productos} setEjecutarConsulta={setEjecutarConsulta} />
                     })}
                 </tbody>
             </table>
-            <button className="productos">Procesar</button>
-            <button className="productos">Buscar</button>
-            <button className="productos">Reportes</button>
         </section>
     );
 }
@@ -92,7 +109,7 @@ const TablaProductos = ({listaProductos, setEjecutarConsulta}) => {
 const FilaProductos = ({productos, setEjecutarConsulta}) => {
 
     const [editar, setEditar] = useState(false);
-
+    const [openDialog, setOpenDialog] = useState(false);
     const [infoNuevaProducto, setInfoNuevaProducto] = useState({
         id: productos.id,
         nombre: productos.nombre,
@@ -136,6 +153,7 @@ const FilaProductos = ({productos, setEjecutarConsulta}) => {
             console.log(error)
             toast.error('No se pudo eliminar producto');
         });
+        setOpenDialog(false)
     }
 
     return(
