@@ -188,11 +188,11 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
                     )}
                 </div>
                 <Dialog open={openDialog}>
-                    <div id='dialog'>
-                        <h1 id='titleDialog'>¿Desea eliminar el usuario?</h1>
-                        <div id='bodyDialog'>
-                            <button onClick={() => { eliminarUsuario() }} id='yesDialog'>Sí</button>
-                            <button onClick={() => { setOpenDialog(false) }} id='noDialog'>No</button>
+                    <div className='p-8 flex flex-col'>
+                        <h1 className='text-gray-800 text-2xl font-bold'>¿Desea eliminar el usuario?</h1>
+                        <div className='flex w-full items-center justify-center my-4'>
+                            <button onClick={() => { eliminarUsuario() }} className='mx-2 px-4 py-2 hover:text-white hover:bg-green-500'>Sí</button>
+                            <button onClick={() => { setOpenDialog(false) }} className='mx-2 px-4 py-2 text-white bg-red-500'>No</button>
                         </div>
                     </div>
                 </Dialog>
