@@ -28,7 +28,7 @@ function App() {
             <Route path={['/Ventas', '/Productos', '/Usuarios']}>
               <LayoutPrivado>
                 <Switch>
-                  <Route path='/Administracion'>
+                  <Route path='/Usuarios'>
                     <RutaPrivada roleList={['Admin']}>
                       <Administracion />
                     </RutaPrivada>
