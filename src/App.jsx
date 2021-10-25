@@ -20,7 +20,7 @@ function App() {
     <Auth0Provider
       domain="misiontic-runteams.us.auth0.com"
       clientId="hdHkF9NrsJMwxkySfC5h6cXikTAwkJP2"
-      redirectUri={window.location.origin}
+      redirectUri='http://localhost:3000/Ventas'
     >
       <div className="App">
         <Router>

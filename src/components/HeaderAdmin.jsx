@@ -22,7 +22,7 @@ const HeaderAdmin = ({children}) => {
                     <Link to='/Productos'>
                         <span className='vinculo'>Productos</span>
                     </Link>
-                    <Link to='/Credenciales'>
+                    <Link to='/Usuarios'>
                         <span className='vinculo'>Administración</span>
                     </Link>
                 </nav>
