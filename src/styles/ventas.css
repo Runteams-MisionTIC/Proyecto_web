@@ -46,7 +46,7 @@ tr:nth-child(even){
 
 .iconos{
   display: flex;
-  flex-wrap: wrap;
+  justify-content:space-evenly;
 }
 
 .inputsTabla{
@@ -72,35 +72,7 @@ tr:nth-child(even){
   cursor: pointer;
 }
 
-#dialog{
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 7%;
-}
-#titleDialog{
-  color: #3a3737;
-}
-#bodyDialog{
-  display: flex;
-  flex-direction: row;
-  padding: 4%;
-  margin: 4%;
-}
-#yesDialog{
-  padding: 4%;
-  cursor: pointer;
-}
-#yesDialog:hover{
-  padding: 4%;
-  background-color: rgb(25, 189, 25);
-  color: white;
-}
-#noDialog{
-  background-color: rgb(219, 83, 83);
-  color: white;
-  cursor: pointer;
-  padding: 4%;
-}
+
 
 /*Fin table*/
 

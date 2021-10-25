@@ -21,6 +21,7 @@ function App() {
       domain="misiontic-runteams.us.auth0.com"
       clientId="hdHkF9NrsJMwxkySfC5h6cXikTAwkJP2"
       redirectUri='http://localhost:3000/Ventas'
+      audience='api-runteams-misiontic'
     >
       <div className="App">
         <Router>
