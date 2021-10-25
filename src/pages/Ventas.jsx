@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid';
 import { Tooltip } from '@material-ui/core';
 import { Dialog } from '@material-ui/core';
 import { obtenerProductos } from '../components/Apis.js';
+import { getToken } from '../components/getToken';
 
 
 
@@ -18,7 +19,13 @@ const Ventas = () => {
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
     const obtenerVentas = async () => {
-        const options = { method: 'GET', url: 'http://localhost:2999/ventas/' };
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:2999/ventas/',
+            headers: {
+                Authorization: getToken()
+            }
+        };
         await axios.request(options).then(function (response) {
             setVentas(response.data);
         })
@@ -123,7 +130,7 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
         const options = {
             method: 'PATCH',
             url: `http://localhost:2999/ventas/${ventas._id}/`,
-            HeaderUsuarioss: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
             data: { ...infoNuevaVenta },
         }
         await axios.request(options).then(function (response) {
@@ -142,8 +149,7 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
         const options = {
             method: 'DELETE',
             url: `http://localhost:2999/ventas/${ventas._id}/`,
-            HeaderUsuarioss: { 'content-type': 'application/json' },
-            data: { id: ventas._id },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
         }
         await axios.request(options).then(function (response) {
             console.log(response.data)
@@ -274,12 +280,12 @@ const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/ventas/',
-            HeaderUsuarioss: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
             data: {
                 nombre: nuevaVenta.nombre, documento: nuevaVenta.documento,
                 telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,
                 cantidad: nuevaVenta.cantidad
-            }
+            },
         }
         await axios.request(options).then(function (response) {
             console.log(response.data)

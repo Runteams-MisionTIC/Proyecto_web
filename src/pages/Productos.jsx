@@ -6,6 +6,7 @@ import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { Tooltip } from '@material-ui/core';
 import { Dialog } from '@material-ui/core';
+import { getToken } from '../components/getToken';
 
 
 
@@ -19,7 +20,13 @@ const Productos = () => {
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
     const obtenerProductos = async () => {
-        const options = { method: 'GET', url: 'http://localhost:2999/productos/' };
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:2999/productos/',
+            headers: {
+                Authorization: getToken()
+            }
+        };
         await axios.request(options).then(function (response) {
             setProductos(response.data);
         })
@@ -118,7 +125,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
         const options = {
             method: 'PATCH',
             url: `http://localhost:2999/productos/${productos._id}/`,
-            HeaderUsuarioss: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
             data: { ...infoNuevaProducto },
         }
         await axios.request(options).then(function (response) {
@@ -137,8 +144,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
         const options = {
             method: 'DELETE',
             url: `http://localhost:2999/productos/${productos._id}/`,
-            HeaderUsuarioss: { 'content-type': 'application/json' },
-            data: { id: productos._id },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
         }
         await axios.request(options).then(function (response) {
             console.log(response.data)
@@ -185,7 +191,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
 
             <td>
                 <div className="iconos">
-                {editar ? (
+                    {editar ? (
                         <>
                             <Tooltip title='Confirmar edición'>
                                 <i onClick={() => { actualizarProducto() }} id="check" className="fas fa-check"></i>
@@ -232,11 +238,11 @@ const FormularioProductos = ({ setMostrarTabla, listaProductos, setProductos }) 
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/productos/',
-            HeaderUsuarioss: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
             data: {
                 id: nuevoProducto.id, nombre: nuevoProducto.nombre,
                 valor: nuevoProducto.valor, stock: nuevoProducto.stock,
-            }
+            },
         }
         await axios.request(options).then(function (response) {
             console.log(response.data)

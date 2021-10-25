@@ -1,68 +1,74 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/usuarios.css';
-import Footer from '../components/Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { Tooltip } from '@material-ui/core';
 import { Dialog } from '@material-ui/core';
+import { getToken } from '../components/getToken';
 
 
 
 const Usuarios = () => {
-    
+
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState("Nuevo usuario");
     const [usuarios, setUsuarios] = useState([]);
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
 
     const obtenerUsuarios = async () => {
-        const options = { method: 'GET', url: 'http://localhost:2999/usuarios/' };
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:2999/usuarios/',
+            headers: {
+                Authorization: getToken()
+            }
+        };
         await axios.request(options).then(function (response) {
             setUsuarios(response.data);
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
+        })
+            .catch(function (error) {
+                console.error(error);
+            });
         setEjecutarConsulta(false);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         if (ejecutarConsulta) {
             obtenerUsuarios();
         }
-    },[ejecutarConsulta]);
+    }, [ejecutarConsulta]);
 
     useEffect(() => {
         if (mostrarTabla) {
-          setEjecutarConsulta(true);
+            setEjecutarConsulta(true);
         }
     }, [mostrarTabla]);
 
     useEffect(() => {
         if (mostrarTabla) {
-          setTextoBoton('Nuevo usuario');
+            setTextoBoton('Nuevo usuario');
         } else {
-          setTextoBoton('Mostrar usuarios');
+            setTextoBoton('Mostrar usuarios');
         }
     }, [mostrarTabla]);
 
     return (
         <div className="Usuarios">
             <section>
-                <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="usuarios">{textoBoton}</button>
-                {mostrarTabla ? ( <TablaUsuarios  listaUsuarios = {usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
-                (<FormularioUsuarios setMostrarTabla={setMostrarTabla} listaUsuarios={usuarios} setUsuarios={setUsuarios}/>)}
+                <button onClick={() => { setMostrarTabla(!mostrarTabla) }} className="usuarios">{textoBoton}</button>
+                {mostrarTabla ? (<TablaUsuarios listaUsuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />) :
+                    (<FormularioUsuarios setMostrarTabla={setMostrarTabla} listaUsuarios={usuarios} setUsuarios={setUsuarios} />)}
                 <ToastContainer position="bottom-center" autoClose={5000} />
             </section>
         </div>
     );
 }
 
-const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta}) => {
+const TablaUsuarios = ({ listaUsuarios, setEjecutarConsulta }) => {
 
-    return(
+    return (
         <section className="contenedor-principal">
             <table>
                 <thead>
@@ -75,7 +81,7 @@ const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {listaUsuarios.map((usuarios)=>{
+                    {listaUsuarios.map((usuarios) => {
                         return <FilaUsuarios key={nanoid()} usuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta} />
                     })}
                 </tbody>
@@ -84,7 +90,7 @@ const TablaUsuarios = ({listaUsuarios, setEjecutarConsulta}) => {
     );
 }
 
-const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
+const FilaUsuarios = ({ usuarios, setEjecutarConsulta }) => {
 
     const [editar, setEditar] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
@@ -96,74 +102,73 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
     });
 
     const actualizarUsuario = async () => {
-        
+
         const options = {
             method: 'PATCH',
             url: `http://localhost:2999/usuarios/${usuarios._id}/`,
-            HeaderAdmins: {'content-type':'application/json'},
-            data: {...infoNuevoUsuario },
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
+            data: { ...infoNuevoUsuario },
         }
-        await axios.request(options).then(function(response){
+        await axios.request(options).then(function (response) {
             console.log(response.data);
             setEditar(false);
             setEjecutarConsulta(true);
             toast.success('El usuario ha sido editado con exito');
         })
-        .catch(function(error){
-            console.log(error)
-            toast.error('El usuario no pudo ser editado');
-        })
+            .catch(function (error) {
+                console.log(error)
+                toast.error('El usuario no pudo ser editado');
+            })
     }
 
     const eliminarUsuario = async () => {
         const options = {
             method: 'DELETE',
             url: `http://localhost:2999/usuarios/${usuarios._id}/`,
-            HeaderAdmins: {'content-type':'application/json'},
-            data: {id: usuarios._id},
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
         }
-        await axios.request(options).then(function(response){
+        await axios.request(options).then(function (response) {
             console.log(response.data)
             setEjecutarConsulta(true)
             toast.success('El usuario ha sido eliminado con exito');
         })
-            .catch(function(error){
+            .catch(function (error) {
                 console.log(error)
                 toast.error('El usuario no pudo ser eliminado');
             });
         setOpenDialog(false)
     }
 
-    return(
+    return (
         <tr>
             {editar ? (
                 <>
-                    <td><input className="inputsTabla" type="text" 
-                        value={infoNuevoUsuario.nombre} 
-                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, nombre: e.target.value})} />
+                    <td><input className="inputsTabla" type="text"
+                        value={infoNuevoUsuario.nombre}
+                        onChange={(e) => setInfoNuevoUsuario({ ...infoNuevoUsuario, nombre: e.target.value })} />
                     </td>
-                    <td><input className="inputsTabla" type="text" 
-                        value={infoNuevoUsuario.documento} 
-                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, documento: e.target.value})} />
+                    <td><input className="inputsTabla" type="text"
+                        value={infoNuevoUsuario.documento}
+                        onChange={(e) => setInfoNuevoUsuario({ ...infoNuevoUsuario, documento: e.target.value })} />
                     </td>
-                    <td><input className="inputsTabla" type="text" 
-                        value={infoNuevoUsuario.rol} 
-                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, rol: e.target.value})} />
+                    <td><input className="inputsTabla" type="text"
+                        value={infoNuevoUsuario.rol}
+                        onChange={(e) => setInfoNuevoUsuario({ ...infoNuevoUsuario, rol: e.target.value })} />
                     </td>
-                    <td><input className="inputsTabla" type="text" 
-                        value={infoNuevoUsuario.estado} 
-                        onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, estado: e.target.value})} />
+                    <td><input className="inputsTabla" type="text"
+                        value={infoNuevoUsuario.estado}
+                        onChange={(e) => setInfoNuevoUsuario({ ...infoNuevoUsuario, estado: e.target.value })} />
                     </td>
-                    
+
                 </>
-             )  : (
-                    <>
-                        <td>{usuarios.nombre}</td>
-                        <td>{usuarios.documento}</td>
-                        <td>{usuarios.rol}</td>
-                        <td>{usuarios.estado}</td>
-                    </>
-                )
+            ) : (
+                <>
+                    <td>{usuarios.nombre}</td>
+                    <td>{usuarios.documento}</td>
+                    <td>{usuarios.rol}</td>
+                    <td>{usuarios.estado}</td>
+                </>
+            )
             }
             <td>
                 <div className="iconos">
@@ -201,9 +206,9 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
     );
 }
 
-const FormularioUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios}) => {
+const FormularioUsuarios = ({ setMostrarTabla, listaUsuarios, setUsuarios }) => {
 
-    const form = useRef(null)     
+    const form = useRef(null)
 
     const enviarBackend = async (e) => {
         e.preventDefault();
@@ -214,41 +219,43 @@ const FormularioUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios}) => {
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/usuarios/',
-            HeaderAdmins: {'content-type':'application/json'},
-            data: {nombre:nuevoUsuario.nombre, documento:nuevoUsuario.documento, 
-                   rol:nuevoUsuario.rol, estado:nuevoUsuario.estado}
+            headers: { 'content-type': 'application/json', Authorization: getToken() },
+            data: {
+                nombre: nuevoUsuario.nombre, documento: nuevoUsuario.documento,
+                rol: nuevoUsuario.rol, estado: nuevoUsuario.estado
+            }
         }
-        await axios.request(options).then(function(response){
+        await axios.request(options).then(function (response) {
             console.log(response.data)
             toast.success('El usuario ha sido agregado con exito');
         })
-        .catch(function(error){
-            console.log(error)
-            toast.error('El usuario no pudo ser agregado');
-        })
+            .catch(function (error) {
+                console.log(error)
+                toast.error('El usuario no pudo ser agregado');
+            })
 
         setMostrarTabla(true);
     }
 
     return (
         <form ref={form} onSubmit={enviarBackend} className="formulario">
-            <input 
-                className="entrada" type="text" 
-                placeholder="Nombre usuario" 
+            <input
+                className="entrada" type="text"
+                placeholder="Nombre usuario"
                 name="nombre" required
             />
-            <input 
-                className="entrada" type="text" 
+            <input
+                className="entrada" type="text"
                 placeholder="Documento"
                 name='documento' required
             />
-            <input 
-                className="entrada" type="text" 
+            <input
+                className="entrada" type="text"
                 placeholder="Rol"
                 name="rol" required
             />
-            <input 
-                className="entrada" type="text" 
+            <input
+                className="entrada" type="text"
                 placeholder="Estado"
                 name="estado" required
             />

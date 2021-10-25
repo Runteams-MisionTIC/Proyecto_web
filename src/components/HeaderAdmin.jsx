@@ -6,6 +6,10 @@ import RutaPrivada from './RutaPrivada';
 
 const HeaderAdmin = ({children}) => {
     const { logout } = useAuth0();
+    const cerrarSesion = () => {
+        logout({ returnTo: window.location.origin });
+        localStorage.setItem('token', null);
+    }
     return (
         <RutaPrivada>
             <header>
@@ -26,7 +30,7 @@ const HeaderAdmin = ({children}) => {
                         <span className='vinculo'>Administración</span>
                     </Link>
                 </nav>
-                <button onClick={() => logout({ returnTo: window.location.origin })} className='login'>Cerrar Sesión</button>
+                <button onClick={() => cerrarSesion()} className='login'>Cerrar Sesión</button>
             </header>
             <main>{children}</main>
         </RutaPrivada>
