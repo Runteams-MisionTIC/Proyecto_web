@@ -1,7 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../styles/productos.css';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -53,14 +51,12 @@ const Productos = () => {
 
     return (
         <div className="Productos">
-            <Header/>
             <section>
                 <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="productos">{textoBoton}</button>
                 {mostrarTabla ? ( <TablaProductos  listaProductos = {productos} setEjecutarConsulta={setEjecutarConsulta} />) : 
                 (<FormularioProductos setMostrarTabla={setMostrarTabla} listaProductos={productos} setProductos={setProductos}/>)}
                 <ToastContainer position="bottom-center" autoClose={5000} />
             </section>
-            <Footer/>
         </div>
     );
 }
@@ -122,7 +118,7 @@ const FilaProductos = ({productos, setEjecutarConsulta}) => {
         const options = {
             method: 'PATCH',
             url: `http://localhost:2999/productos/${productos._id}/`,
-            headers: {'content-type':'application/json'},
+            HeaderUsuarioss: {'content-type':'application/json'},
             data: {...infoNuevaProducto },
         }
         await axios.request(options).then(function(response){
@@ -141,7 +137,7 @@ const FilaProductos = ({productos, setEjecutarConsulta}) => {
         const options = {
             method: 'DELETE',
             url: `http://localhost:2999/productos/${productos._id}/`,
-            headers: {'content-type':'application/json'},
+            HeaderUsuarioss: {'content-type':'application/json'},
             data: {id: productos._id},
         }
         await axios.request(options).then(function(response){
@@ -214,7 +210,7 @@ const FormularioProductos = ({setMostrarTabla, listaProductos, setProductos}) =>
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/productos/',
-            headers: {'content-type':'application/json'},
+            HeaderUsuarioss: {'content-type':'application/json'},
             data: {id:nuevoProducto.id, nombre:nuevoProducto.nombre, 
                    valor:nuevoProducto.valor, stock:nuevoProducto.stock, 
                    }

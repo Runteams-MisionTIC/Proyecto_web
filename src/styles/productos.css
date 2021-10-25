@@ -1,49 +1,4 @@
-/*HEADER*/
 
-header{
-  /*position:fixed; /* Hace que la barra de navegacion siempre este presente*/
-  top: 0;
-  left: 0;
-  width: 100vw;
-  background:#fff;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  padding: 1rem 9%;
-  margin-bottom: 2%;
-  display: flex;
-  align-items: center;
-  justify-content:space-between; 
-}
-
-.logo{
-height: 4em;
-}
-.usuario{
-height: 3em;
-}
-
-.vinculo {
-color: black;
-padding: 1%;
-margin: 1%;
-border-radius: 0;
-position: relative;
-left: 2%;
-font-size: large;
-text-decoration: none;
-}
-.vinculo:hover{
-cursor: pointer;
-color: black;
-background-color: #8ecae6;
-box-shadow: 1px 2px 5px 0 black;
-}
-
-/*FIN HEADER*/
-
-body{
-background-color: #f1f1f1;
-font-family: Helvetica;
-}
 
 .productos{
 margin-left: 30px;
