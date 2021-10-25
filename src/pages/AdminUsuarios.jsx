@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../styles/usuarios.css';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -51,14 +50,12 @@ const Usuarios = () => {
 
     return (
         <div className="Usuarios">
-            <Header/>
             <section>
                 <button  onClick = {() => {setMostrarTabla(!mostrarTabla)}} className="usuarios">{textoBoton}</button>
                 {mostrarTabla ? ( <TablaUsuarios  listaUsuarios = {usuarios} setEjecutarConsulta={setEjecutarConsulta} />) : 
                 (<FormularioUsuarios setMostrarTabla={setMostrarTabla} listaUsuarios={usuarios} setUsuarios={setUsuarios}/>)}
                 <ToastContainer position="bottom-center" autoClose={5000} />
             </section>
-            <Footer/>
         </div>
     );
 }
@@ -103,7 +100,7 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
         const options = {
             method: 'PATCH',
             url: `http://localhost:2999/usuarios/${usuarios._id}/`,
-            headers: {'content-type':'application/json'},
+            HeaderAdmins: {'content-type':'application/json'},
             data: {...infoNuevoUsuario },
         }
         await axios.request(options).then(function(response){
@@ -122,7 +119,7 @@ const FilaUsuarios = ({usuarios, setEjecutarConsulta}) => {
         const options = {
             method: 'DELETE',
             url: `http://localhost:2999/usuarios/${usuarios._id}/`,
-            headers: {'content-type':'application/json'},
+            HeaderAdmins: {'content-type':'application/json'},
             data: {id: usuarios._id},
         }
         await axios.request(options).then(function(response){
@@ -217,7 +214,7 @@ const FormularioUsuarios = ({setMostrarTabla, listaUsuarios, setUsuarios}) => {
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/usuarios/',
-            headers: {'content-type':'application/json'},
+            HeaderAdmins: {'content-type':'application/json'},
             data: {nombre:nuevoUsuario.nombre, documento:nuevoUsuario.documento, 
                    rol:nuevoUsuario.rol, estado:nuevoUsuario.estado}
         }

@@ -4,6 +4,9 @@ import Productos from './pages/Productos.jsx';
 import Login from './pages/Login.jsx';
 import Credenciales from './pages/Credenciales.jsx';
 import Administracion from './pages/AdminUsuarios.jsx';
+import LayoutPrivado from './layouts/LayoutPrivado.jsx';
+import LayoutPublico from './layouts/LayoutPublico.jsx';
+import RutaPrivada from './components/RutaPrivada.jsx';
 import './styles/App.css';
 import {
   BrowserRouter as Router,
@@ -22,23 +25,35 @@ function App() {
       <div className="App">
         <Router>
           <Switch>
-            <Route path='/Login'>
-              <Login />
+            <Route path={['/Ventas', '/Productos', '/Usuarios']}>
+              <LayoutPrivado>
+                <Switch>
+                  <Route path='/Administracion'>
+                    <RutaPrivada roleList={['Admin']}>
+                      <Administracion />
+                    </RutaPrivada>
+                  </Route>
+                  <Route path='/Productos'>
+                    <RutaPrivada roleList={['Admin']}>
+                      <Productos />
+                    </RutaPrivada>
+                  </Route>
+                  <Route path='/Ventas'>
+                    <RutaPrivada roleList={['Admin', 'Vendedor']}>
+                      <Ventas />
+                    </RutaPrivada>                    
+                  </Route>
+                </Switch>
+              </LayoutPrivado>
             </Route>
-            <Route path='/Credenciales'>
-              <Credenciales />
-            </Route>
-            <Route path='/Administracion'>
-              <Administracion />
-            </Route>
-            <Route path='/Productos'>
-              <Productos />
-            </Route>
-            <Route path='/Ventas'>
-              <Ventas />
-            </Route>
-            <Route path='/'>
-              <Index />
+            <Route path={['/']}>
+              <LayoutPublico>
+                <Switch>
+                  <Route path='/'>
+                    <Index />
+                  </Route>
+                </Switch>
+              </LayoutPublico>
             </Route>
           </Switch>
         </Router>

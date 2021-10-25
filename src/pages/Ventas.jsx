@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/ventas.css';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -52,14 +50,12 @@ const Ventas = () => {
 
     return (
         <div className="Ventas">
-            <Header />
             <section>
                 <button onClick={() => { setMostrarTabla(!mostrarTabla) }} className="ventas">{textoBoton}</button>
                 {mostrarTabla ? (<TablaVentas listaVentas={ventas} setEjecutarConsulta={setEjecutarConsulta} />) :
                     (<FormularioVentas setMostrarTabla={setMostrarTabla} listaVentas={ventas} setVentas={setVentas} />)}
                 <ToastContainer position="bottom-center" autoClose={5000} />
             </section>
-            <Footer />
         </div>
     );
 }
@@ -127,7 +123,7 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
         const options = {
             method: 'PATCH',
             url: `http://localhost:2999/ventas/${ventas._id}/`,
-            headers: { 'content-type': 'application/json' },
+            HeaderUsuarioss: { 'content-type': 'application/json' },
             data: { ...infoNuevaVenta },
         }
         await axios.request(options).then(function (response) {
@@ -146,7 +142,7 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
         const options = {
             method: 'DELETE',
             url: `http://localhost:2999/ventas/${ventas._id}/`,
-            headers: { 'content-type': 'application/json' },
+            HeaderUsuarioss: { 'content-type': 'application/json' },
             data: { id: ventas._id },
         }
         await axios.request(options).then(function (response) {
@@ -278,7 +274,7 @@ const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/ventas/',
-            headers: { 'content-type': 'application/json' },
+            HeaderUsuarioss: { 'content-type': 'application/json' },
             data: {
                 nombre: nuevaVenta.nombre, documento: nuevaVenta.documento,
                 telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,

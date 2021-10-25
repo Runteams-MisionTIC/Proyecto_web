@@ -1,6 +1,4 @@
 import React from "react";
-import Footer from '../components/Footer';
-import Header from '../components/Header';
 import '../styles/credenciales.css';
 import { Link } from "react-router-dom";
 
@@ -8,7 +6,6 @@ import { Link } from "react-router-dom";
 function Credenciales() {
     return(
         <div className="Credenciales">
-            <Header/>
             <div className="Container-admin">
                 <div className="admin">
                     <h6>Seguridad de Runteams</h6>
@@ -23,7 +20,6 @@ function Credenciales() {
                     </form>
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }
