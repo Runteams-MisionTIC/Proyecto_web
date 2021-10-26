@@ -17,6 +17,8 @@ export const obtenerProductos = async (setProductos, setEjecutarConsulta = () =>
         });
     setEjecutarConsulta(false);
 };
+
+
 export const obtenerUsuarios = async (setUsuarios, setEjecutarConsulta = () => { }) => {
     const options = {
         method: 'GET',
