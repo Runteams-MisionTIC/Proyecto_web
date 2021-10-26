@@ -1,0 +1,44 @@
+header{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 30px 10%;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    width: 100%;
+    background:#fff;
+    margin-bottom: 20px;
+  }
+    
+  .logo{
+    height: 4em;
+    margin: 0;
+  }
+  .usuario{
+    height: 3em;
+  }
+  
+  .vinculo{
+    display: inline-block;
+    padding: 10px;
+    margin-left: 70px;
+    color: black;
+    font-size: large;
+  }
+  .vinculo:hover{
+    cursor: pointer;
+    color: black;
+    background-color: #8ecae6;
+    box-shadow: 1px 2px 5px 0 black;
+  }
+  
+  .login{
+    color: white;
+    background-color: #2d8fbd;
+    padding: 18px;
+    border-radius: 8px;
+  }
+  
+  .login:hover{
+    box-shadow: 1px 1px 2px black;
+  }
+  
