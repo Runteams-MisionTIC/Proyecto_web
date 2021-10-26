@@ -84,7 +84,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
         <section className="flex flex-col items-center justify-center w-full">
             <input
                 placeholder='Buscar'
-                className='self-end border border-gray-700 px-3 py-1 rounded-md outline-none focus:border-indi'
+                className='self-end border border-gray-700 px-3 py-1 rounded-md outline-none mx-8'
                 value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
             />
