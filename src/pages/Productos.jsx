@@ -149,7 +149,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
         await axios.request(options).then(function (response) {
             console.log(response.data)
             setEjecutarConsulta(true)
-            toast.success('El producto ha sido agregado con exito');
+            toast.success('El producto ha sido eliminado con exito');
         })
             .catch(function (error) {
                 console.log(error)

@@ -154,13 +154,19 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
         await axios.request(options).then(function (response) {
             console.log(response.data)
             setEjecutarConsulta(true)
-            toast.success('La venta ha sido agregada con exito');
+            toast.success('La venta ha sido eliminada con exito');
         })
             .catch(function (error) {
                 console.log(error)
-                toast.error('La venta no pudo ser agregada');
+                toast.error('La venta no pudo ser eliminada');
             });
         setOpenDialog(false)
+    }
+
+    const multiplicar = () => {
+        let x = ventas.cantidad;
+        let y = 1;
+        return y * x;
     }
 
     useEffect(() => {
@@ -183,7 +189,6 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
                         value={infoNuevaVenta.telefono}
                         onChange={(e) => setInfoNuevaVenta({ ...infoNuevaVenta, telefono: e.target.value })} />
                     </td>
-
 
                     <td>
                         <select className="inputsTabla" type="text"
@@ -212,19 +217,10 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
             )
             }
             <td>valor</td>
-            <td>$3.000</td>
-            <td>#00000000</td>
-
-
-            {/* function generateRandom(min,max){
-                return Math.floor(Math.random()* (max - min) + min);
-            }
-            function multiplicar(){
-                var x = parseInt(document.getElementById("valor1").value);
-                var y = parseInt(document.getElementById("valor2").value);
-                document.getElementById("resultado").innerHTML = x * y;
-            } */}
-
+            <td>valor total</td>
+            <td>
+                {ventas.ID}
+            </td>
 
             <td>
                 <div className="iconos">
@@ -262,12 +258,16 @@ const FilaVentas = ({ ventas, setEjecutarConsulta }) => {
     );
 }
 
-const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
+const FormularioVentas = ({ setMostrarTabla}) => {
 
     const [productos, setProductos] = useState([]);
     useEffect(() => {
         obtenerProductos(setProductos);
     }, []);
+
+    const generateRandom = (min,max) => {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
 
     const form = useRef(null)
 
@@ -277,6 +277,8 @@ const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
         const nuevaVenta = {};
         fd.forEach((value, key) => nuevaVenta[key] = value);
 
+        const IDventa = `#${generateRandom(100000, 999999)}`
+
         const options = {
             method: 'POST',
             url: 'http://localhost:2999/ventas/',
@@ -284,7 +286,7 @@ const FormularioVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
             data: {
                 nombre: nuevaVenta.nombre, documento: nuevaVenta.documento,
                 telefono: nuevaVenta.telefono, producto: nuevaVenta.producto,
-                cantidad: nuevaVenta.cantidad
+                cantidad: nuevaVenta.cantidad, ID: IDventa
             },
         }
         await axios.request(options).then(function (response) {
